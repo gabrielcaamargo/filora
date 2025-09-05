@@ -2,6 +2,11 @@ import { StyleSheet } from "react-native";
 import { ThemeImplementation } from "./theme";
 import { theme } from "./theme";
 
+/**
+ * Custom function to create a themed StyleSheet
+ * @param stylesFn - A function that returns a themed StyleSheet
+ * @returns A StyleSheet object with the theme object injected
+ */
 export function themedStyleSheet<
   T extends StyleSheet.NamedStyles<T> | StyleSheet.NamedStyles<any>
 >(
