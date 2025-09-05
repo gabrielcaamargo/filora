@@ -1,7 +1,8 @@
-import { Text, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { themedStyleSheet } from "@theme";
 import { useFonts } from "@hooks";
+import { Text } from "@components";
 
 export default function App() {
   const fontsLoaded = useFonts();
@@ -12,11 +13,9 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.title}>
-          Open up App.tsx to start working on your app!
-        </Text>
-      </TouchableOpacity>
+      <Text preset="headingLarge" weight="Bold" color="primaryColor">
+        Open up App.tsx to start working on your app!
+      </Text>
       <StatusBar style="auto" />
     </View>
   );
@@ -28,10 +27,6 @@ const styles = themedStyleSheet(({ colors, spacing, radius }) => ({
     backgroundColor: colors.backgroundColor,
     alignItems: "center",
     justifyContent: "center",
-  },
-
-  title: {
-    color: colors.textColor,
   },
 
   button: {

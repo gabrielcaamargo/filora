@@ -1,4 +1,4 @@
-const colors: Record<string, string> = {
+const colors = {
   emeraldDark: "#047857",
   emeraldMain: "#10b981",
   emeraldLight: "#6ee7b7",
@@ -20,7 +20,7 @@ const colors: Record<string, string> = {
   black: "#000000",
 };
 
-export const palette: Record<string, string> = {
+export const palette = {
   ...colors,
   primaryColor: colors.emeraldMain,
   secondaryColor: colors.orangeMain,
