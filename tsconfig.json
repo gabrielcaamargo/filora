@@ -11,8 +11,7 @@
       "@theme": ["./src/theme"],
       "@domain": ["./src/domain"],
       "@types": ["./src/types"],
-      "@utils": ["./src/utils"],
-      
+      "@utils": ["./src/utils"]
     }
   }
 }
