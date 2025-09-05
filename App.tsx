@@ -1,8 +1,15 @@
 import { Text, TouchableOpacity, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { themedStyleSheet } from "@theme";
+import { useFonts } from "@hooks";
 
 export default function App() {
+  const fontsLoaded = useFonts();
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.button}>

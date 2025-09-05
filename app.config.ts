@@ -36,5 +36,6 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         launchMode: "most-recent",
       },
     ],
+    "expo-font",
   ],
 });
