@@ -14,3 +14,5 @@ export function themedStyleSheet<
 ): T {
   return StyleSheet.create(stylesFn(theme));
 }
+
+export type ThemedStyleSheet = ReturnType<typeof themedStyleSheet>;

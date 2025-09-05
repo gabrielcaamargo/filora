@@ -61,11 +61,11 @@ export function Text({
 
   return (
     <RNText
-      {...props}
       style={[
         { fontFamily, color: theme.palette[color], fontSize, lineHeight },
         style,
       ]}
+      {...props}
     />
   );
 }

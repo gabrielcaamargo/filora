@@ -1,4 +1,4 @@
-export const spacing: Record<string, number> = {
+export const spacing = {
   s2: 2,
   s4: 4,
   s6: 6,
@@ -12,4 +12,4 @@ export const spacing: Record<string, number> = {
   s40: 40,
 };
 
-export type ThemeSpacing = keyof typeof spacing;
+export type ThemeSpacing = typeof spacing;

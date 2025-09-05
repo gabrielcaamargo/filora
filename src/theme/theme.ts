@@ -1,11 +1,11 @@
-import { palette } from "./colors";
-import { radius } from "./radius";
-import { spacing } from "./spacing";
+import { palette, Theme } from "./colors";
+import { radius, ThemeRadius } from "./radius";
+import { spacing, ThemeSpacing } from "./spacing";
 
 export type ThemeImplementation = {
-  colors: Record<string, string>;
-  radius: Record<string, number>;
-  spacing: Record<string, number>;
+  colors: Theme;
+  radius: ThemeRadius;
+  spacing: ThemeSpacing;
 };
 
 export const theme: ThemeImplementation = {
