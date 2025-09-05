@@ -1,6 +1,6 @@
-import { palette } from "./themeColors";
-import { radius } from "./themeRadius";
-import { spacing } from "./themeSpacing";
+import { palette } from "./colors";
+import { radius } from "./radius";
+import { spacing } from "./spacing";
 
 export type ThemeImplementation = {
   colors: Record<string, string>;
