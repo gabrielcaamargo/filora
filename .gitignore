@@ -39,3 +39,5 @@ yarn-error.*
 # native apps
 /android/
 /ios/
+
+coverage/

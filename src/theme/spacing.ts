@@ -13,3 +13,4 @@ export const spacing = {
 };
 
 export type ThemeSpacing = typeof spacing;
+export type ThemeSpacingKey = keyof ThemeSpacing;

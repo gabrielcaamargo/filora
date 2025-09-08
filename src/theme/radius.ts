@@ -6,3 +6,4 @@ export const radius = {
 };
 
 export type ThemeRadius = typeof radius;
+export type ThemeRadiusKey = keyof ThemeRadius;

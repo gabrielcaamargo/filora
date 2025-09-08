@@ -17,7 +17,7 @@ export default function App() {
         Open up App.tsx to start working on your app!
       </Text>
 
-      <Button title="Button" />
+      <Button title="Button" preset="outline" />
       <StatusBar style="auto" />
     </View>
   );
