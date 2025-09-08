@@ -46,6 +46,10 @@
     ],
     "collectCoverageFrom": [
       "src/{components,utils,hooks}/**/*.{ts,js,tsx,jsx}"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "./src/test"
     ]
   },
   "private": true
