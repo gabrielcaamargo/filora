@@ -1,6 +1,7 @@
 import { ThemedStyleSheet, themedStyleSheet } from "@theme";
 import { TouchableOpacity, TouchableOpacityProps } from "react-native";
 import { Text } from "../Text/Text";
+import { TestIds } from "@test";
 
 type ButtonPreset = "default" | "outline";
 
@@ -43,6 +44,7 @@ export function Button({
   return (
     <TouchableOpacity
       style={[defaultStyles.container, styles.container, style]}
+      testID={TestIds.BUTTON}
       {...props}
     >
       <Text weight="Medium" style={styles.title}>
