@@ -12,7 +12,8 @@
       "@domain": ["./src/domain"],
       "@types": ["./src/types"],
       "@utils": ["./src/utils"],
-      "@test": ["./src/test"]
+      "@test": ["./src/test"],
+      "test-utils": ["./src/test/test-utils"]
     }
   }
 }
