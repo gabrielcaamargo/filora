@@ -1,6 +1,6 @@
 const colors = {
   emeraldDark: "#047857",
-  emeraldMain: "#10b981",
+  emeraldMain: "#059669",
   emeraldLight: "#6ee7b7",
 
   orangeDark: "#c2410c",
@@ -26,8 +26,8 @@ export const palette = {
   primaryColor: colors.emeraldMain,
   secondaryColor: colors.orangeMain,
 
-  textColor: colors.white,
-  backgroundColor: colors.grayDarkest,
+  textColor: colors.grayDarkest,
+  backgroundColor: colors.white,
 
   error: colors.redMain,
   success: colors.greenMain,
