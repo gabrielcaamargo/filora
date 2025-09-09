@@ -3,6 +3,7 @@ import { StatusBar } from "expo-status-bar";
 import { themedStyleSheet } from "@theme";
 import { useFonts } from "@hooks";
 import { Button, Text } from "@components";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 export default function App() {
   const fontsLoaded = useFonts();
@@ -12,14 +13,16 @@ export default function App() {
   }
 
   return (
-    <View style={styles.container}>
-      <Text preset="headingLarge" weight="Bold" color="primaryColor">
-        Open up App.tsx to start working on your app!
-      </Text>
+    <SafeAreaProvider>
+      <View style={styles.container}>
+        <Text preset="headingLarge" weight="Bold" color="primaryColor">
+          Open up App.tsx to start working on your app!
+        </Text>
 
-      <Button title="Button" preset="outline" />
-      <StatusBar style="auto" />
-    </View>
+        <Button title="Button" preset="outline" />
+        <StatusBar style="auto" />
+      </View>
+    </SafeAreaProvider>
   );
 }
 
