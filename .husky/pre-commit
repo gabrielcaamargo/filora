@@ -2,9 +2,6 @@ echo "Linting..."
 yarn lint
 echo "✅ Linting complete"
 
-echo "Linting commit"
-yarn add commitlint --edit ${1}
-echo "✅ Linting commit complete"
 
 echo "Starting tests"
 yarn test
