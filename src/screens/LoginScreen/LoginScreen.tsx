@@ -1,4 +1,4 @@
-import { TextInput } from "@components";
+import { Icon, TextInput } from "@components";
 import { AuthScreenProps } from "@routes";
 import { themedStyleSheet } from "@theme";
 import { View } from "react-native";
