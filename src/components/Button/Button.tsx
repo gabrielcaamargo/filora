@@ -54,7 +54,7 @@ export function Button({
   );
 }
 
-const defaultStyles = themedStyleSheet(({ colors, spacing, radius }) => ({
+const defaultStyles = themedStyleSheet(({ spacing, radius }) => ({
   container: {
     borderRadius: radius.s8,
     paddingHorizontal: spacing.s16,
