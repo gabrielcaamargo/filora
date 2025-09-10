@@ -30,6 +30,7 @@ export function TextInput({
       onPress={handleFocus}
       disabled={disabled}
       testID={TestIds.TEXT_INPUT_CONTAINER}
+      style={styles.wrapper}
     >
       <View style={styles.container}>
         {label && <Text testID={TestIds.TEXT_INPUT_LABEL}>{label}</Text>}
@@ -37,6 +38,7 @@ export function TextInput({
         <RNTextInput
           ref={inputRef}
           testID={TestIds.TEXT_INPUT}
+          editable={!disabled}
           style={[styles.inputContainer, disabled && styles.disabledInput]}
           {...textInputProps}
         />
@@ -46,15 +48,22 @@ export function TextInput({
 }
 
 const styles = themedStyleSheet(({ colors, spacing, radius }) => ({
+  wrapper: {
+    width: "100%",
+  },
+
   container: {
     gap: spacing.s8,
   },
+
   inputContainer: {
     borderWidth: 1,
     borderColor: colors.grayLight,
     borderRadius: radius.s8,
     paddingHorizontal: spacing.s16,
     paddingVertical: spacing.s12,
+    fontSize: 16,
+    fontFamily: "Inter_400Regular",
   },
 
   disabledInput: {

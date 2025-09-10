@@ -1,7 +1,6 @@
 import { fireEvent, render } from "test-utils";
 import { TextInput } from "../TextInput";
 import { TestIds } from "@test";
-import { Pressable } from "react-native";
 
 describe("<TextInput />", () => {
   it("should display the label", () => {
