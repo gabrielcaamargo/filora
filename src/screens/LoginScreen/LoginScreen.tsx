@@ -6,7 +6,8 @@ import { View } from "react-native";
 export function LoginScreen({}: AuthScreenProps<"LoginScreen">) {
   return (
     <View style={styles.container}>
-      <TextInput placeholder="Email" label="Email" />
+      {/* <TextInput placeholder="Email" label="Email" /> */}
+      <Icon variant="AntDesign" name="mail" color="primaryColor" />
     </View>
   );
 }
