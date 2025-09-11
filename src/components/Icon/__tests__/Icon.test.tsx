@@ -1,36 +1,8 @@
 import { fireEvent, render } from "test-utils";
 import { Icon } from "../Icon";
 import { TestIds } from "@test";
-import { View } from "react-native";
 
 jest.spyOn(console, "warn").mockImplementation(() => {});
-
-jest.mock("@expo/vector-icons", () => {
-  const React = require("react");
-  const { View } = require("react-native");
-  const { TestIds } = require("@test");
-
-  function MockIcon() {
-    return <View testID={TestIds.ICON} />;
-  }
-
-  return {
-    AntDesign: MockIcon,
-    Entypo: MockIcon,
-    EvilIcons: MockIcon,
-    Feather: MockIcon,
-    FontAwesome: MockIcon,
-    FontAwesome5: MockIcon,
-    Fontisto: MockIcon,
-    Foundation: MockIcon,
-    Ionicons: MockIcon,
-    MaterialCommunityIcons: MockIcon,
-    MaterialIcons: MockIcon,
-    Octicons: MockIcon,
-    SimpleLineIcons: MockIcon,
-    Zocial: MockIcon,
-  };
-});
 
 describe("<Icon />", () => {
   beforeEach(() => {
