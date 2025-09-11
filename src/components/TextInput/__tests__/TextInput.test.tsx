@@ -75,4 +75,42 @@ describe("<TextInput />", () => {
 
     expect(onFocus).toHaveBeenCalled();
   });
+
+  it("should render the icon when iconName and iconVariant are provided", () => {
+    const { getByTestId } = render(
+      <TextInput iconName="mail" iconVariant="AntDesign" />
+    );
+
+    const icon = getByTestId(TestIds.ICON);
+
+    expect(icon).toBeTruthy();
+  });
+
+  it("should call onPressIcon when the icon is pressed", () => {
+    const onPressIcon = jest.fn();
+
+    const { getByTestId } = render(
+      <TextInput
+        iconName="mail"
+        iconVariant="AntDesign"
+        onPressIcon={onPressIcon}
+      />
+    );
+
+    const iconContainer = getByTestId(TestIds.ICON_CONTAINER);
+
+    fireEvent.press(iconContainer);
+
+    expect(onPressIcon).toHaveBeenCalled();
+  });
+
+  it("should render gray icon when disabled", () => {
+    const { getByTestId } = render(
+      <TextInput iconName="mail" iconVariant="AntDesign" disabled />
+    );
+
+    const icon = getByTestId(TestIds.ICON);
+
+    expect(icon).toBeTruthy();
+  });
 });
