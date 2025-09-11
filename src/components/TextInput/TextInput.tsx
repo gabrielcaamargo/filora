@@ -8,15 +8,23 @@ import { Text } from "../Text/Text";
 import { TestIds } from "@test";
 import { themedStyleSheet } from "@theme";
 import { useRef } from "react";
+import { IconVariant } from "../Icon/icon.types";
+import { Icon } from "../Icon/Icon";
 
 interface TextInputProps extends RNTextInputProps {
   label?: string;
   disabled?: boolean;
+  iconName?: string;
+  iconVariant?: IconVariant;
+  onPressIcon?: () => void;
 }
 
 export function TextInput({
   label,
   disabled = false,
+  iconVariant,
+  iconName,
+  onPressIcon,
   ...textInputProps
 }: TextInputProps) {
   const inputRef = useRef<RNTextInput>(null);
@@ -35,13 +43,24 @@ export function TextInput({
       <View style={styles.container}>
         {label && <Text testID={TestIds.TEXT_INPUT_LABEL}>{label}</Text>}
 
-        <RNTextInput
-          ref={inputRef}
-          testID={TestIds.TEXT_INPUT}
-          editable={!disabled}
-          style={[styles.inputContainer, disabled && styles.disabledInput]}
-          {...textInputProps}
-        />
+        <View style={[styles.inputContainer, disabled && styles.disabledInput]}>
+          <RNTextInput
+            ref={inputRef}
+            testID={TestIds.TEXT_INPUT}
+            editable={!disabled}
+            style={styles.input}
+            {...textInputProps}
+          />
+
+          {iconVariant && iconName && (
+            <Icon
+              variant={iconVariant}
+              name={iconName}
+              color={disabled ? "grayMain" : "textColor"}
+              onPressIcon={onPressIcon}
+            />
+          )}
+        </View>
       </View>
     </Pressable>
   );
@@ -62,8 +81,14 @@ const styles = themedStyleSheet(({ colors, spacing, radius }) => ({
     borderRadius: radius.s8,
     paddingHorizontal: spacing.s16,
     paddingVertical: spacing.s12,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+
+  input: {
     fontSize: 16,
     fontFamily: "Inter_400Regular",
+    flex: 1,
   },
 
   disabledInput: {
