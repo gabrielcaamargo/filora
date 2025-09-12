@@ -11,7 +11,7 @@ import { useRef } from "react";
 import { IconVariant } from "../Icon/icon.types";
 import { Icon } from "../Icon/Icon";
 
-interface TextInputProps extends RNTextInputProps {
+export interface TextInputProps extends RNTextInputProps {
   label?: string;
   disabled?: boolean;
   iconName?: string;
