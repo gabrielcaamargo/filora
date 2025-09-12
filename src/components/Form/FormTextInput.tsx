@@ -8,6 +8,7 @@ import {
 import { Text, TextInput, TextInputProps } from "@components";
 import { View } from "react-native";
 import { themedStyleSheet } from "@theme";
+import { TestIds } from "@test";
 
 export function FormTextInput<FormType extends FieldValues>({
   control,
@@ -26,7 +27,7 @@ export function FormTextInput<FormType extends FieldValues>({
       name={name}
       rules={rules}
       render={({ field, fieldState: { error } }) => (
-        <View style={styles.wrapper}>
+        <View style={styles.wrapper} testID={TestIds.FORM_TEXT_INPUT}>
           <TextInput
             value={field.value}
             onChangeText={field.onChange}

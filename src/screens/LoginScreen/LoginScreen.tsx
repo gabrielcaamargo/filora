@@ -38,7 +38,6 @@ export function LoginScreen({}: AuthScreenProps<"LoginScreen">) {
         onPressIcon={() => setSecureTextEntry((prev) => !prev)}
         secureTextEntry={secureTextEntry}
       />
-      {/* <Icon variant="AntDesign" name="mail" color="primaryColor" /> */}
     </View>
   );
 }

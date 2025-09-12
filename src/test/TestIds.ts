@@ -7,4 +7,6 @@ export enum TestIds {
 
   ICON = "icon",
   ICON_CONTAINER = "icon-container",
+
+  FORM_TEXT_INPUT = "form-text-input",
 }
