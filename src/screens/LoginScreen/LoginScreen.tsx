@@ -2,17 +2,20 @@ import { FormTextInput, TextInput } from "@components";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AuthScreenProps } from "@routes";
 import { themedStyleSheet } from "@theme";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Alert, View } from "react-native";
 import z from "zod";
 
 const testSchema = z.object({
-  email: z.string().email("Email inválido"),
+  email: z.string(),
 });
 
 type TestSchema = z.infer<typeof testSchema>;
 
 export function LoginScreen({}: AuthScreenProps<"LoginScreen">) {
+  const [secureTextEntry, setSecureTextEntry] = useState(true);
+
   const {
     control,
     formState: { errors },
@@ -29,11 +32,11 @@ export function LoginScreen({}: AuthScreenProps<"LoginScreen">) {
         control={control}
         placeholder="Email"
         label="Email"
-        iconVariant="AntDesign"
-        iconName="mail"
+        iconVariant="Feather"
+        iconName={secureTextEntry ? "eye" : "eye-off"}
         errors={errors}
-        // disabled
-        onPressIcon={() => Alert.alert("Email")}
+        onPressIcon={() => setSecureTextEntry((prev) => !prev)}
+        secureTextEntry={secureTextEntry}
       />
       {/* <Icon variant="AntDesign" name="mail" color="primaryColor" /> */}
     </View>
