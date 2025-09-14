@@ -10,6 +10,7 @@ import { themedStyleSheet } from "@theme";
 import { useRef } from "react";
 import { IconVariant } from "../Icon/icon.types";
 import { Icon } from "../Icon/Icon";
+import { useTheme } from "@hooks";
 
 export interface TextInputProps extends RNTextInputProps {
   label?: string;
@@ -28,7 +29,9 @@ export function TextInput({
   ...textInputProps
 }: TextInputProps) {
   const inputRef = useRef<RNTextInput>(null);
-
+  const {
+    theme: { colors },
+  } = useTheme();
   function handleFocus() {
     inputRef.current?.focus();
   }
@@ -47,6 +50,7 @@ export function TextInput({
           <RNTextInput
             ref={inputRef}
             testID={TestIds.TEXT_INPUT}
+            placeholderTextColor={colors.grayMain}
             editable={!disabled}
             style={styles.input}
             {...textInputProps}
@@ -77,7 +81,7 @@ const styles = themedStyleSheet(({ colors, spacing, radius }) => ({
 
   inputContainer: {
     borderWidth: 1,
-    borderColor: colors.grayLight,
+    borderColor: colors.grayMain,
     borderRadius: radius.s8,
     paddingHorizontal: spacing.s16,
     paddingVertical: spacing.s12,

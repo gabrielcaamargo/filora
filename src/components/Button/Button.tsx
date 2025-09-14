@@ -61,5 +61,6 @@ const defaultStyles = themedStyleSheet(({ spacing, radius }) => ({
     paddingVertical: spacing.s8,
     alignItems: "center",
     justifyContent: "center",
+    height: 48,
   },
 }));
