@@ -22,19 +22,18 @@ export function LoginScreen({}: AuthScreenProps<"LoginScreen">) {
         </Text>
 
         <View style={styles.formContainer}>
-          <TextInput
-            label="Email"
-            // name="email"
-            placeholder="Digite seu email"
-          />
+          <TextInput label="Email" placeholder="Digite seu email" />
 
-          <TextInput
-            label="Senha"
-            // name="email"
-            placeholder="Digite sua senha"
-          />
+          <TextInput label="Senha" placeholder="Digite sua senha" />
 
           <Button title="Entrar" />
+
+          <View style={styles.divider} />
+
+          <View style={styles.socialButtons}>
+            <Button title="Entrar com Google" preset="outline" />
+            <Button title="Entrar com Apple" preset="outline" />
+          </View>
         </View>
       </View>
     </View>
@@ -65,5 +64,15 @@ const styles = themedStyleSheet(({ colors, spacing }) => ({
   formContainer: {
     marginTop: spacing.s20,
     gap: spacing.s16,
+  },
+
+  divider: {
+    height: 1,
+    backgroundColor: colors.grayLight,
+    width: "100%",
+  },
+
+  socialButtons: {
+    gap: spacing.s8,
   },
 }));
