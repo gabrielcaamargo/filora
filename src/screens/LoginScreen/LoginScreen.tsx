@@ -1,16 +1,36 @@
-import { Button, Text, TextInput } from "@components";
+import { Button, FormTextInput, Text } from "@components";
 import { useAppSafeArea } from "@hooks";
 import { AuthScreenProps } from "@routes";
 import { themedStyleSheet } from "@theme";
+import { useForm } from "react-hook-form";
 import { Dimensions, Image, View, ScrollView } from "react-native";
 import { KeyboardStickyView } from "react-native-keyboard-controller";
+import { loginSchema, LoginSchema } from "./LoginSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
 
 export function LoginScreen({}: AuthScreenProps<"LoginScreen">) {
   const { top } = useAppSafeArea();
 
+  const {
+    control,
+    handleSubmit: formSubmit,
+    formState: { isValid, errors },
+  } = useForm<LoginSchema>({
+    resolver: zodResolver(loginSchema),
+    mode: "onChange",
+    delayError: 500,
+  });
+
+  const [secureTextEntry, setSecureTextEntry] = useState(true);
+
   function handleSocialLogin(provider: "google" | "apple") {
     // TODO: Implement social login
     console.log(provider);
+  }
+
+  function handleSubmit(data: LoginSchema) {
+    console.log(data);
   }
 
   return (
@@ -37,11 +57,33 @@ export function LoginScreen({}: AuthScreenProps<"LoginScreen">) {
           </Text>
 
           <View style={styles.formContainer}>
-            <TextInput label="Email" placeholder="Digite seu email" />
+            <FormTextInput
+              label="Email"
+              placeholder="Digite seu email"
+              control={control}
+              name="email"
+              errors={errors}
+              autoCapitalize="none"
+              autoCorrect={false}
+            />
 
-            <TextInput label="Senha" placeholder="Digite sua senha" />
+            <FormTextInput
+              label="Senha"
+              placeholder="Digite sua senha"
+              control={control}
+              name="password"
+              errors={errors}
+              secureTextEntry={secureTextEntry}
+              onPressIcon={() => setSecureTextEntry((prev) => !prev)}
+              iconName={secureTextEntry ? "eye-off" : "eye"}
+              iconVariant="Feather"
+            />
 
-            <Button title="Entrar" />
+            <Button
+              title="Entrar"
+              onPress={formSubmit(handleSubmit)}
+              disabled={!isValid}
+            />
 
             <View style={styles.divider} />
 
