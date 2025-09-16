@@ -3,6 +3,8 @@ import { useAppSafeArea } from "@hooks";
 import { AuthScreenProps } from "@routes";
 import { themedStyleSheet } from "@theme";
 import { Dimensions, Image, View } from "react-native";
+import { KeyboardStickyView } from "react-native-keyboard-controller";
+
 export function LoginScreen({}: AuthScreenProps<"LoginScreen">) {
   const { top } = useAppSafeArea();
 
@@ -15,26 +17,28 @@ export function LoginScreen({}: AuthScreenProps<"LoginScreen">) {
           height={100}
           style={styles.image}
         />
-      </View>
-      <View style={styles.formWrapper}>
-        <Text preset="headingLarge" weight="Bold" color="primaryColor">
-          Entrar
-        </Text>
+        <KeyboardStickyView style={{ flex: 1 }}>
+          <View style={styles.formWrapper}>
+            <Text preset="headingLarge" weight="Bold" color="primaryColor">
+              Entrar
+            </Text>
 
-        <View style={styles.formContainer}>
-          <TextInput label="Email" placeholder="Digite seu email" />
+            <View style={styles.formContainer}>
+              <TextInput label="Email" placeholder="Digite seu email" />
 
-          <TextInput label="Senha" placeholder="Digite sua senha" />
+              <TextInput label="Senha" placeholder="Digite sua senha" />
 
-          <Button title="Entrar" />
+              <Button title="Entrar" />
 
-          <View style={styles.divider} />
+              <View style={styles.divider} />
 
-          <View style={styles.socialButtons}>
-            <Button title="Entrar com Google" preset="outline" />
-            <Button title="Entrar com Apple" preset="outline" />
+              <View style={styles.socialButtons}>
+                <Button title="Entrar com Google" preset="outline" />
+                <Button title="Entrar com Apple" preset="outline" />
+              </View>
+            </View>
           </View>
-        </View>
+        </KeyboardStickyView>
       </View>
     </View>
   );
