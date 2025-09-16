@@ -8,6 +8,7 @@ import { KeyboardStickyView } from "react-native-keyboard-controller";
 import { loginSchema, LoginSchema } from "./LoginSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
+import { TestIds } from "@test";
 
 export function LoginScreen({}: AuthScreenProps<"LoginScreen">) {
   const { top } = useAppSafeArea();
@@ -92,11 +93,13 @@ export function LoginScreen({}: AuthScreenProps<"LoginScreen">) {
                 title="Entrar com Google"
                 preset="outline"
                 onPress={() => handleSocialLogin("google")}
+                testID={TestIds.GOOGLE_SOCIAL_BUTTON}
               />
               <Button
                 title="Entrar com Apple"
                 preset="outline"
                 onPress={() => handleSocialLogin("apple")}
+                testID={TestIds.APPLE_SOCIAL_BUTTON}
               />
             </View>
           </View>
