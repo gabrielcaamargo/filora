@@ -15,11 +15,18 @@ const screenOptions: NativeStackNavigationOptions = {
   headerShown: false,
 };
 
-export function AuthStackNavigation() {
+export function AuthStackNavigation({
+  initialRouteName = "LoginScreen",
+}: {
+  initialRouteName?: keyof AuthStackParamList;
+}) {
   const Stack = createNativeStackNavigator<AuthStackParamList>();
 
   return (
-    <Stack.Navigator screenOptions={screenOptions}>
+    <Stack.Navigator
+      screenOptions={screenOptions}
+      initialRouteName={initialRouteName}
+    >
       <Stack.Screen name="LoginScreen" component={LoginScreen} />
     </Stack.Navigator>
   );
