@@ -82,6 +82,7 @@ export function LoginScreen({}: AuthScreenProps<"LoginScreen">) {
 
             <Button
               title="Entrar"
+              testID={TestIds.LOGIN_BUTTON}
               onPress={formSubmit(handleSubmit)}
               disabled={!isValid}
             />

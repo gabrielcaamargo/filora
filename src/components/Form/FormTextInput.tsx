@@ -15,6 +15,7 @@ export function FormTextInput<FormType extends FieldValues>({
   name,
   rules,
   errors,
+  testID,
   ...textInputProps
 }: TextInputProps &
   UseControllerProps<FormType> &
@@ -27,7 +28,7 @@ export function FormTextInput<FormType extends FieldValues>({
       name={name}
       rules={rules}
       render={({ field, fieldState: { error } }) => (
-        <View style={styles.wrapper} testID={TestIds.FORM_TEXT_INPUT}>
+        <View style={styles.wrapper} testID={testID ?? TestIds.FORM_TEXT_INPUT}>
           <TextInput
             value={field.value}
             onChangeText={field.onChange}

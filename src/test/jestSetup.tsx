@@ -1,5 +1,9 @@
 export {};
 
+jest.mock("react-native-keyboard-controller", () =>
+  require("react-native-keyboard-controller/jest")
+);
+
 jest.mock("@expo/vector-icons", () => {
   const React = require("react");
   const { View } = require("react-native");

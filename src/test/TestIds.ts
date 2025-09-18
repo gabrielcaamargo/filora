@@ -10,6 +10,7 @@ export enum TestIds {
 
   FORM_TEXT_INPUT = "form-text-input",
 
+  LOGIN_BUTTON = "login-button",
   APPLE_SOCIAL_BUTTON = "apple-social-button",
   GOOGLE_SOCIAL_BUTTON = "google-social-button",
 }

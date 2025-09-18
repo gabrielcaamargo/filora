@@ -1,7 +1,222 @@
-import { render } from "test-utils";
+import { fireEvent, renderScreen, waitFor } from "test-utils";
+import { AuthStackNavigation } from "@routes";
+import { TestIds } from "@test";
 
 describe("<LoginScreen />", () => {
   it("should render the social buttons correctly", () => {
-    // render;
+    const { getByTestId } = renderScreen(
+      <AuthStackNavigation initialRouteName="LoginScreen" />
+    );
+
+    expect(getByTestId(TestIds.GOOGLE_SOCIAL_BUTTON)).toBeTruthy();
+    expect(getByTestId(TestIds.APPLE_SOCIAL_BUTTON)).toBeTruthy();
+  });
+
+  describe("Password Visibility Toggle", () => {
+    it("should toggle password visibility when eye icon is pressed", async () => {
+      const { getByPlaceholderText, getByTestId } = renderScreen(
+        <AuthStackNavigation initialRouteName="LoginScreen" />
+      );
+
+      const passwordInput = getByPlaceholderText(/Digite sua senha/i);
+
+      // Initially password should be secure
+      expect(passwordInput.props.secureTextEntry).toBe(true);
+
+      // Find and press the eye icon
+      const iconContainers = getByTestId(TestIds.ICON_CONTAINER);
+      fireEvent.press(iconContainers);
+
+      await waitFor(() => {
+        expect(passwordInput.props.secureTextEntry).toBe(false);
+      });
+    });
+  });
+
+  describe("Form Validation", () => {
+    it("should display error message when email is invalid", async () => {
+      const { getByPlaceholderText, findByText } = renderScreen(
+        <AuthStackNavigation initialRouteName="LoginScreen" />
+      );
+
+      const emailInput = getByPlaceholderText(/Digite seu email/i);
+
+      // Enter invalid email and trigger validation
+      fireEvent.changeText(emailInput, "invalid-email");
+      fireEvent(emailInput, "blur");
+
+      // Wait for validation error to appear
+      await waitFor(async () => {
+        const errorText = await findByText(/Email inválido/i);
+        expect(errorText).toBeTruthy();
+      });
+    });
+
+    it("should display error message when password is too short", async () => {
+      const { getByPlaceholderText, findByText } = renderScreen(
+        <AuthStackNavigation initialRouteName="LoginScreen" />
+      );
+
+      const passwordInput = getByPlaceholderText(/Digite sua senha/i);
+
+      fireEvent.changeText(passwordInput, "123");
+      fireEvent(passwordInput, "blur");
+
+      await waitFor(async () => {
+        const errorText = await findByText(
+          /A senha deve ter pelo menos 8 caracteres/i
+        );
+        expect(errorText).toBeTruthy();
+      });
+    });
+
+    it("should display error message when password doesn't meet complexity requirements", async () => {
+      const { getByPlaceholderText, findByText } = renderScreen(
+        <AuthStackNavigation initialRouteName="LoginScreen" />
+      );
+
+      const passwordInput = getByPlaceholderText(/Digite sua senha/i);
+
+      fireEvent.changeText(passwordInput, "password123");
+      fireEvent(passwordInput, "blur");
+
+      await waitFor(async () => {
+        const errorText = await findByText(
+          /A senha deve conter pelo menos 1 letra maiúscula, 1 minúscula e 1 número/i
+        );
+        expect(errorText).toBeTruthy();
+      });
+    });
+
+    it("should NOT display error messages when fields are valid", async () => {
+      const { getByPlaceholderText, queryByText } = renderScreen(
+        <AuthStackNavigation initialRouteName="LoginScreen" />
+      );
+
+      const emailInput = getByPlaceholderText(/Digite seu email/i);
+      const passwordInput = getByPlaceholderText(/Digite sua senha/i);
+
+      fireEvent.changeText(emailInput, "test@example.com");
+      fireEvent.changeText(passwordInput, "Password123");
+      fireEvent(emailInput, "blur");
+      fireEvent(passwordInput, "blur");
+
+      await waitFor(() => {
+        expect(queryByText("Email inválido")).toBeFalsy();
+        expect(
+          queryByText(/A senha deve ter pelo menos 8 caracteres/i)
+        ).toBeFalsy();
+        expect(
+          queryByText(
+            /A senha deve conter pelo menos 1 letra maiúscula, 1 minúscula e 1 número/i
+          )
+        ).toBeFalsy();
+      });
+    });
+  });
+
+  describe("Form Submission", () => {
+    it("should disable login button when form is empty", () => {
+      const { getByTestId } = renderScreen(
+        <AuthStackNavigation initialRouteName="LoginScreen" />
+      );
+
+      const loginButton = getByTestId(TestIds.LOGIN_BUTTON);
+      expect(loginButton).toBeDisabled();
+    });
+
+    it("should disable login button when form has invalid data", async () => {
+      const { getByPlaceholderText, getByTestId } = renderScreen(
+        <AuthStackNavigation initialRouteName="LoginScreen" />
+      );
+
+      const emailInput = getByPlaceholderText(/Digite seu email/i);
+      const passwordInput = getByPlaceholderText(/Digite sua senha/i);
+      const loginButton = getByTestId(TestIds.LOGIN_BUTTON);
+
+      fireEvent.changeText(emailInput, "invalid-email");
+      fireEvent.changeText(passwordInput, "123");
+
+      await waitFor(() => {
+        expect(loginButton).toBeDisabled();
+      });
+    });
+
+    it("should enable login button when form has valid data", async () => {
+      const { getByPlaceholderText, getByTestId } = renderScreen(
+        <AuthStackNavigation initialRouteName="LoginScreen" />
+      );
+
+      const emailInput = getByPlaceholderText(/Digite seu email/i);
+      const passwordInput = getByPlaceholderText(/Digite sua senha/i);
+      const loginButton = getByTestId(TestIds.LOGIN_BUTTON);
+
+      fireEvent.changeText(emailInput, "test@example.com");
+      fireEvent.changeText(passwordInput, "Password123");
+
+      await waitFor(() => {
+        expect(loginButton).not.toBeDisabled();
+      });
+    });
+
+    it("should call handleSubmit when login button is pressed with valid form", async () => {
+      const consoleSpy = jest.spyOn(console, "log").mockImplementation();
+
+      const { getByPlaceholderText, getByTestId } = renderScreen(
+        <AuthStackNavigation initialRouteName="LoginScreen" />
+      );
+
+      const emailInput = getByPlaceholderText(/Digite seu email/i);
+      const passwordInput = getByPlaceholderText(/Digite sua senha/i);
+      const loginButton = getByTestId(TestIds.LOGIN_BUTTON);
+
+      fireEvent.changeText(emailInput, "test@example.com");
+      fireEvent.changeText(passwordInput, "Password123");
+
+      await waitFor(() => {
+        expect(loginButton).not.toBeDisabled();
+      });
+
+      fireEvent.press(loginButton);
+
+      await waitFor(() => {
+        expect(consoleSpy).toHaveBeenCalledWith({
+          email: "test@example.com",
+          password: "Password123",
+        });
+      });
+
+      consoleSpy.mockRestore();
+    });
+  });
+
+  describe("Social Login", () => {
+    it("should call handleSocialLogin with 'google' when Google button is pressed", () => {
+      const consoleSpy = jest.spyOn(console, "log").mockImplementation();
+
+      const { getByTestId } = renderScreen(
+        <AuthStackNavigation initialRouteName="LoginScreen" />
+      );
+
+      const googleButton = getByTestId(TestIds.GOOGLE_SOCIAL_BUTTON);
+      fireEvent.press(googleButton);
+
+      expect(consoleSpy).toHaveBeenCalledWith("google");
+      consoleSpy.mockRestore();
+    });
+
+    it("should call handleSocialLogin with 'apple' when Apple button is pressed", () => {
+      const consoleSpy = jest.spyOn(console, "log").mockImplementation();
+
+      const { getByTestId } = renderScreen(
+        <AuthStackNavigation initialRouteName="LoginScreen" />
+      );
+
+      const appleButton = getByTestId(TestIds.APPLE_SOCIAL_BUTTON);
+      fireEvent.press(appleButton);
+
+      expect(consoleSpy).toHaveBeenCalledWith("apple");
+      consoleSpy.mockRestore();
+    });
   });
 });
