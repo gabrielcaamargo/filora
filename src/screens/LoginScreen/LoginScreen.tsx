@@ -3,7 +3,14 @@ import { useAppSafeArea } from "@hooks";
 import { AuthScreenProps } from "@routes";
 import { themedStyleSheet } from "@theme";
 import { useForm } from "react-hook-form";
-import { Dimensions, Image, View, ScrollView } from "react-native";
+import {
+  Dimensions,
+  Image,
+  View,
+  ScrollView,
+  Pressable,
+  TouchableOpacity,
+} from "react-native";
 import { KeyboardStickyView } from "react-native-keyboard-controller";
 import { loginSchema, LoginSchema } from "./LoginSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -104,6 +111,12 @@ export function LoginScreen({}: AuthScreenProps<"LoginScreen">) {
               />
             </View>
           </View>
+
+          <TouchableOpacity style={styles.createAccountButton}>
+            <Text weight="Medium" color="grayDarker" preset="paragraphSmall">
+              Ainda não tem conta? Crie uma agora mesmo
+            </Text>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </KeyboardStickyView>
@@ -145,7 +158,7 @@ const styles = themedStyleSheet(({ colors, spacing }) => ({
   },
 
   formContainer: {
-    marginTop: spacing.s20,
+    marginTop: spacing.s12,
     gap: spacing.s16,
   },
 
@@ -153,11 +166,22 @@ const styles = themedStyleSheet(({ colors, spacing }) => ({
     height: 1,
     backgroundColor: colors.grayLight,
     width: "100%",
-    marginVertical: spacing.s8,
+    marginVertical: spacing.s2,
   },
 
   socialButtons: {
     gap: spacing.s8,
     marginTop: spacing.s8,
+  },
+
+  createAccountButton: {
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: spacing.s8,
+  },
+
+  createAccountButtonText: {
+    textDecorationLine: "underline",
+    textDecorationColor: colors.primaryColor,
   },
 }));
