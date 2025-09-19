@@ -2,7 +2,6 @@ import { NavigationContainer, ThemeProvider } from "@react-navigation/native";
 import { render, RenderOptions } from "@testing-library/react-native";
 import { ReactElement } from "react";
 import { KeyboardProvider } from "react-native-keyboard-controller";
-import { SafeAreaProvider } from "react-native-safe-area-context";
 
 export function AllTheProviders({ children }: React.PropsWithChildren) {
   return <KeyboardProvider>{children}</KeyboardProvider>;

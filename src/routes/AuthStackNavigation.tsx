@@ -2,7 +2,7 @@ import {
   createNativeStackNavigator,
   NativeStackNavigationOptions,
 } from "@react-navigation/native-stack";
-import { LoginScreen } from "@screens";
+import { LoginScreen, SignupScreen } from "@screens";
 
 export type AuthStackParamList = {
   LoginScreen: undefined;
@@ -28,6 +28,7 @@ export function AuthStackNavigation({
       initialRouteName={initialRouteName}
     >
       <Stack.Screen name="LoginScreen" component={LoginScreen} />
+      <Stack.Screen name="SignupScreen" component={SignupScreen} />
     </Stack.Navigator>
   );
 }

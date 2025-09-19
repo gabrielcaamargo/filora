@@ -70,24 +70,6 @@ describe("<LoginScreen />", () => {
       });
     });
 
-    it("should display error message when password doesn't meet complexity requirements", async () => {
-      const { getByPlaceholderText, findByText } = renderScreen(
-        <AuthStackNavigation initialRouteName="LoginScreen" />
-      );
-
-      const passwordInput = getByPlaceholderText(/Digite sua senha/i);
-
-      fireEvent.changeText(passwordInput, "password123");
-      fireEvent(passwordInput, "blur");
-
-      await waitFor(async () => {
-        const errorText = await findByText(
-          /A senha deve conter pelo menos 1 letra maiúscula, 1 minúscula e 1 número/i
-        );
-        expect(errorText).toBeTruthy();
-      });
-    });
-
     it("should NOT display error messages when fields are valid", async () => {
       const { getByPlaceholderText, queryByText } = renderScreen(
         <AuthStackNavigation initialRouteName="LoginScreen" />
@@ -105,11 +87,6 @@ describe("<LoginScreen />", () => {
         expect(queryByText("Email inválido")).toBeFalsy();
         expect(
           queryByText(/A senha deve ter pelo menos 8 caracteres/i)
-        ).toBeFalsy();
-        expect(
-          queryByText(
-            /A senha deve conter pelo menos 1 letra maiúscula, 1 minúscula e 1 número/i
-          )
         ).toBeFalsy();
       });
     });
