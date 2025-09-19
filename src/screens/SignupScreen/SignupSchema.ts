@@ -2,7 +2,7 @@ import z from "zod";
 
 const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d@$!%*?&]{8,}$/;
 
-const signupSchema = z
+export const signupSchema = z
   .object({
     firstName: z.string().min(1, "O nome é obrigatório"),
     lastName: z.string().min(1, "O sobrenome é obrigatório"),

@@ -46,6 +46,7 @@ const scrollViewProps: ScrollViewProps = {
   showsVerticalScrollIndicator: false,
   style: {
     backgroundColor: theme.colors.backgroundColor,
+    flex: 1,
   },
   contentContainerStyle: {
     paddingBottom: spacing.s16,
