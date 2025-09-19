@@ -1,9 +1,12 @@
 import { KeyboardStickyView } from "react-native-keyboard-controller";
 import { ScrollViewContainer, ViewContainer } from "./Container";
-import { spacing, themedStyleSheet } from "@theme";
-import { ScrollViewProps, View, ViewProps } from "react-native";
+import { spacing, theme, themedStyleSheet } from "@theme";
+import { Pressable, ScrollViewProps, View, ViewProps } from "react-native";
 import { useAppSafeArea } from "@hooks";
 import { TestIds } from "@test";
+import { Text } from "../Text/Text";
+import { Icon } from "../Icon/Icon";
+import { useNavigation } from "@react-navigation/native";
 
 interface ScreenProps {
   /**
@@ -23,12 +26,27 @@ interface ScreenProps {
    * @default true
    */
   withHorizontalPadding?: boolean;
+
+  /**
+   * Whether to show the back button in the screen.
+   * @default false
+   */
+  canGoBack?: boolean;
+
+  /**
+   * The title of the screen.
+   * @default undefined
+   */
+  title?: string;
 }
 
 const scrollViewProps: ScrollViewProps = {
   bounces: false,
   keyboardShouldPersistTaps: "handled",
   showsVerticalScrollIndicator: false,
+  style: {
+    backgroundColor: theme.colors.backgroundColor,
+  },
   contentContainerStyle: {
     paddingBottom: spacing.s16,
   },
@@ -37,6 +55,7 @@ const scrollViewProps: ScrollViewProps = {
 const viewProps: ViewProps = {
   style: {
     flex: 1,
+    backgroundColor: theme.colors.backgroundColor,
   },
 };
 
@@ -47,11 +66,13 @@ export function Screen({
   scrollable = false,
   hasVerticalInsets = true,
   withHorizontalPadding = true,
+  canGoBack = false,
+  title,
   children,
 }: React.PropsWithChildren<ScreenProps>) {
   const Container = scrollable ? ScrollViewContainer : ViewContainer;
   const { top } = useAppSafeArea();
-
+  const navigation = useNavigation();
   return (
     <KeyboardStickyView style={styles.container}>
       <Container scrollViewProps={scrollViewProps} viewProps={viewProps}>
@@ -62,6 +83,25 @@ export function Screen({
             { paddingTop: hasVerticalInsets ? top : 0 },
           ]}
         >
+          {canGoBack && (
+            <Pressable onPress={navigation.goBack} style={styles.header}>
+              <Icon
+                variant="Feather"
+                name="arrow-left"
+                color="secondaryColor"
+              />
+              <Text weight="SemiBold" color="secondaryColor">
+                Voltar
+              </Text>
+            </Pressable>
+          )}
+          {title && (
+            <View style={styles.contentContainer}>
+              <Text preset="headingLarge" weight="Bold" color="primaryColor">
+                {title}
+              </Text>
+            </View>
+          )}
           {children}
         </View>
       </Container>
@@ -76,5 +116,16 @@ const styles = themedStyleSheet(({ spacing }) => ({
 
   content: {
     paddingHorizontal: spacing.s20,
+  },
+
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: spacing.s8,
+    marginBottom: spacing.s16,
+  },
+
+  contentContainer: {
+    marginBottom: spacing.s16,
   },
 }));

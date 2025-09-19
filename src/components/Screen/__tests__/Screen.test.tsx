@@ -8,9 +8,16 @@ jest.mock("react-native-safe-area-context", () => ({
     .mockReturnValue({ top: 24, bottom: 24, left: 0, right: 0 }),
 }));
 
+jest.mock("@react-navigation/native", () => ({
+  useNavigation: jest.fn().mockReturnValue({ goBack: mockedGoBackFunction }),
+}));
+
+const mockedGoBackFunction = jest.fn();
+
 describe("<Screen />", () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    mockedGoBackFunction.mockClear();
   });
 
   it("should render a View if scrollable is false", () => {

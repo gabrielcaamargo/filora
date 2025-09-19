@@ -3,21 +3,13 @@ import { useAppSafeArea } from "@hooks";
 import { AuthScreenProps } from "@routes";
 import { themedStyleSheet } from "@theme";
 import { useForm } from "react-hook-form";
-import {
-  Dimensions,
-  Image,
-  View,
-  ScrollView,
-  Pressable,
-  TouchableOpacity,
-} from "react-native";
-import { KeyboardStickyView } from "react-native-keyboard-controller";
+import { Dimensions, Image, View, TouchableOpacity } from "react-native";
 import { loginSchema, LoginSchema } from "./LoginSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { TestIds } from "@test";
 
-export function LoginScreen({}: AuthScreenProps<"LoginScreen">) {
+export function LoginScreen({ navigation }: AuthScreenProps<"LoginScreen">) {
   const { top } = useAppSafeArea();
 
   const {
@@ -35,6 +27,10 @@ export function LoginScreen({}: AuthScreenProps<"LoginScreen">) {
   function handleSocialLogin(provider: "google" | "apple") {
     // TODO: Implement social login
     console.log(provider);
+  }
+
+  function navigateToSignupScreen() {
+    navigation.navigate("SignupScreen");
   }
 
   function handleSubmit(data: LoginSchema) {
@@ -105,8 +101,11 @@ export function LoginScreen({}: AuthScreenProps<"LoginScreen">) {
           </View>
         </View>
 
-        <TouchableOpacity style={styles.createAccountButton}>
-          <Text weight="Medium" color="grayDarker" preset="paragraphSmall">
+        <TouchableOpacity
+          style={styles.createAccountButton}
+          onPress={navigateToSignupScreen}
+        >
+          <Text weight="Medium" color="secondaryColor" preset="paragraphSmall">
             Ainda não tem conta? Crie uma agora mesmo
           </Text>
         </TouchableOpacity>
