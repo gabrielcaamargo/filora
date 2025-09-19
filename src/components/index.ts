@@ -4,3 +4,4 @@ export * from "./TextInput/TextInput";
 export * from "./Icon/Icon";
 export * from "./Icon/icon.types";
 export * from "./Form/FormTextInput";
+export * from "./Screen/Screen";
