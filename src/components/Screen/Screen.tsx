@@ -84,7 +84,11 @@ export function Screen({
           ]}
         >
           {canGoBack && (
-            <Pressable onPress={navigation.goBack} style={styles.header}>
+            <Pressable
+              onPress={navigation.goBack}
+              style={styles.header}
+              testID={TestIds.SCREEN_BACK_BUTTON}
+            >
               <Icon
                 variant="Feather"
                 name="arrow-left"

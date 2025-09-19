@@ -17,4 +17,5 @@ export enum TestIds {
   SCREEN_SCROLL_VIEW = "screen-scroll-view",
   SCREEN_VIEW = "screen-view",
   SCREEN_VIEW_CONTENT = "screen-view-content",
+  SCREEN_BACK_BUTTON = "screen-back-button",
 }
