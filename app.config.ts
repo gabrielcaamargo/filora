@@ -17,6 +17,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   ios: {
     supportsTablet: true,
     bundleIdentifier: "com.gabrielcaamargo.DocuScanApp",
+    googleServicesFile: "./GoogleService-Info.plist",
   },
   android: {
     adaptiveIcon: {
@@ -25,6 +26,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     },
     edgeToEdgeEnabled: true,
     package: "com.gabrielcaamargo.DocuScanApp",
+    googleServicesFile: "./google-services.json",
   },
   web: {
     favicon: "./assets/favicon.png",
@@ -37,5 +39,16 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       },
     ],
     "expo-font",
+    "@react-native-firebase/app",
+    "@react-native-firebase/auth",
+    "@react-native-firebase/crashlytics",
+    [
+      "expo-build-properties",
+      {
+        ios: {
+          useFrameworks: "static",
+        },
+      },
+    ],
   ],
 });

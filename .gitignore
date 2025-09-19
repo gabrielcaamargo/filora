@@ -41,3 +41,7 @@ yarn-error.*
 /ios/
 
 coverage/
+
+# Firebase
+google-services.json
+GoogleService-Info.plist
