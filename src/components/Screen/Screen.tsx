@@ -3,6 +3,7 @@ import { ScrollViewContainer, ViewContainer } from "./Container";
 import { spacing, themedStyleSheet } from "@theme";
 import { ScrollViewProps, View, ViewProps } from "react-native";
 import { useAppSafeArea } from "@hooks";
+import { TestIds } from "@test";
 
 interface ScreenProps {
   /**
@@ -49,13 +50,13 @@ export function Screen({
   children,
 }: React.PropsWithChildren<ScreenProps>) {
   const Container = scrollable ? ScrollViewContainer : ViewContainer;
-  const containerProps = scrollable ? scrollViewProps : viewProps;
   const { top } = useAppSafeArea();
 
   return (
     <KeyboardStickyView style={styles.container}>
       <Container scrollViewProps={scrollViewProps} viewProps={viewProps}>
         <View
+          testID={TestIds.SCREEN_VIEW_CONTENT}
           style={[
             withHorizontalPadding && styles.content,
             { paddingTop: hasVerticalInsets ? top : 0 },

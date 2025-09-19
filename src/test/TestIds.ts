@@ -13,4 +13,8 @@ export enum TestIds {
   LOGIN_BUTTON = "login-button",
   APPLE_SOCIAL_BUTTON = "apple-social-button",
   GOOGLE_SOCIAL_BUTTON = "google-social-button",
+
+  SCREEN_SCROLL_VIEW = "screen-scroll-view",
+  SCREEN_VIEW = "screen-view",
+  SCREEN_VIEW_CONTENT = "screen-view-content",
 }
