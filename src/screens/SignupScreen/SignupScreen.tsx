@@ -59,7 +59,7 @@ export function SignupScreen() {
           control={control}
           name="password"
           errors={errors}
-          placeholder="Digite seu sobrenome"
+          placeholder="Digite sua senha"
           label="Senha"
           secureTextEntry={secureTextEntry}
           onPressIcon={() => setSecureTextEntry((prev) => !prev)}
@@ -71,7 +71,7 @@ export function SignupScreen() {
           control={control}
           name="confirmPassword"
           errors={errors}
-          placeholder="Digite sua senha"
+          placeholder="Confirme sua senha"
           label="Confirmar senha"
           secureTextEntry
         />
@@ -80,6 +80,7 @@ export function SignupScreen() {
           title="Criar conta"
           onPress={formSubmit(handleSubmit)}
           disabled={!isValid}
+          testID={TestIds.SIGNUP_BUTTON}
         />
 
         <View style={styles.divider} />
