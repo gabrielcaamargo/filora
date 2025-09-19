@@ -101,7 +101,7 @@ export function Screen({
           )}
           {title && (
             <View style={styles.contentContainer}>
-              <Text preset="headingLarge" weight="Bold" color="primaryColor">
+              <Text preset="headingLarge" weight="Bold">
                 {title}
               </Text>
             </View>
