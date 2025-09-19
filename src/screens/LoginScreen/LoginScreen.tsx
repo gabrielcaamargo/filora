@@ -1,4 +1,4 @@
-import { Button, FormTextInput, Text } from "@components";
+import { Button, FormTextInput, Screen, Text } from "@components";
 import { useAppSafeArea } from "@hooks";
 import { AuthScreenProps } from "@routes";
 import { themedStyleSheet } from "@theme";
@@ -42,84 +42,76 @@ export function LoginScreen({}: AuthScreenProps<"LoginScreen">) {
   }
 
   return (
-    <KeyboardStickyView style={styles.container}>
-      <ScrollView
-        style={styles.scrollView}
-        contentContainerStyle={styles.scrollContent}
-        showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps="handled"
-        bounces={false}
-      >
-        <View style={[styles.imageContainer, { paddingTop: top }]}>
-          <Image
-            source={require("@assets/login-image.png")}
-            width={100}
-            height={100}
-            style={styles.image}
+    <Screen withHorizontalPadding={false} hasVerticalInsets={false} scrollable>
+      <View style={[styles.imageContainer, { paddingTop: top }]}>
+        <Image
+          source={require("@assets/login-image.png")}
+          width={100}
+          height={100}
+          style={styles.image}
+        />
+      </View>
+
+      <View style={styles.formWrapper}>
+        <Text preset="headingLarge" weight="Bold" color="primaryColor">
+          Entrar
+        </Text>
+
+        <View style={styles.formContainer}>
+          <FormTextInput
+            label="Email"
+            placeholder="Digite seu email"
+            control={control}
+            name="email"
+            errors={errors}
+            autoCapitalize="none"
+            autoCorrect={false}
           />
-        </View>
 
-        <View style={styles.formWrapper}>
-          <Text preset="headingLarge" weight="Bold" color="primaryColor">
-            Entrar
-          </Text>
+          <FormTextInput
+            label="Senha"
+            placeholder="Digite sua senha"
+            control={control}
+            name="password"
+            errors={errors}
+            secureTextEntry={secureTextEntry}
+            onPressIcon={() => setSecureTextEntry((prev) => !prev)}
+            iconName={secureTextEntry ? "eye-off" : "eye"}
+            iconVariant="Feather"
+          />
 
-          <View style={styles.formContainer}>
-            <FormTextInput
-              label="Email"
-              placeholder="Digite seu email"
-              control={control}
-              name="email"
-              errors={errors}
-              autoCapitalize="none"
-              autoCorrect={false}
-            />
+          <Button
+            title="Entrar"
+            testID={TestIds.LOGIN_BUTTON}
+            onPress={formSubmit(handleSubmit)}
+            disabled={!isValid}
+          />
 
-            <FormTextInput
-              label="Senha"
-              placeholder="Digite sua senha"
-              control={control}
-              name="password"
-              errors={errors}
-              secureTextEntry={secureTextEntry}
-              onPressIcon={() => setSecureTextEntry((prev) => !prev)}
-              iconName={secureTextEntry ? "eye-off" : "eye"}
-              iconVariant="Feather"
-            />
+          <View style={styles.divider} />
 
+          <View style={styles.socialButtons}>
             <Button
-              title="Entrar"
-              testID={TestIds.LOGIN_BUTTON}
-              onPress={formSubmit(handleSubmit)}
-              disabled={!isValid}
+              title="Entrar com Google"
+              preset="outline"
+              onPress={() => handleSocialLogin("google")}
+              testID={TestIds.GOOGLE_SOCIAL_BUTTON}
             />
-
-            <View style={styles.divider} />
-
-            <View style={styles.socialButtons}>
-              <Button
-                title="Entrar com Google"
-                preset="outline"
-                onPress={() => handleSocialLogin("google")}
-                testID={TestIds.GOOGLE_SOCIAL_BUTTON}
-              />
-              <Button
-                title="Entrar com Apple"
-                preset="outline"
-                onPress={() => handleSocialLogin("apple")}
-                testID={TestIds.APPLE_SOCIAL_BUTTON}
-              />
-            </View>
+            <Button
+              title="Entrar com Apple"
+              preset="outline"
+              onPress={() => handleSocialLogin("apple")}
+              testID={TestIds.APPLE_SOCIAL_BUTTON}
+            />
           </View>
-
-          <TouchableOpacity style={styles.createAccountButton}>
-            <Text weight="Medium" color="grayDarker" preset="paragraphSmall">
-              Ainda não tem conta? Crie uma agora mesmo
-            </Text>
-          </TouchableOpacity>
         </View>
-      </ScrollView>
-    </KeyboardStickyView>
+
+        <TouchableOpacity style={styles.createAccountButton}>
+          <Text weight="Medium" color="grayDarker" preset="paragraphSmall">
+            Ainda não tem conta? Crie uma agora mesmo
+          </Text>
+        </TouchableOpacity>
+      </View>
+    </Screen>
   );
 }
 
