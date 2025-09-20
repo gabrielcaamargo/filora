@@ -1,5 +1,5 @@
 import { FirebaseAuthTypes } from "@react-native-firebase/auth";
-import { User } from "./authTypes";
+import { User } from "./userTypes";
 
 function firebaseAuthToUser(
   userCredential: FirebaseAuthTypes.UserCredential
@@ -13,6 +13,6 @@ function firebaseAuthToUser(
   };
 }
 
-export const authAdapter = {
+export const userAdapter = {
   firebaseAuthToUser,
 };
