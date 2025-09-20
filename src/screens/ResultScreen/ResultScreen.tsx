@@ -1,5 +1,6 @@
 import { Button, Icon, Screen, Text } from "@components";
 import { AuthScreenProps } from "@routes";
+import { TestIds } from "@test";
 import { ThemeColors, themedStyleSheet } from "@theme";
 import { Dimensions, View } from "react-native";
 
@@ -33,6 +34,7 @@ export function ResultScreen({ route }: AuthScreenProps<"ResultScreen">) {
         variant="Feather"
         color={resultType.color}
         size={ICON_SIZE}
+        testID={TestIds.RESULT_SCREEN_ICON}
       />
 
       <View style={styles.contentContainer}>

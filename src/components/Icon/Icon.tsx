@@ -18,7 +18,6 @@ import { IconVariant } from "./icon.types";
 import { ThemeColors } from "@theme";
 import { useTheme } from "@hooks";
 import { TestIds } from "@test";
-import { memo } from "react";
 import { Pressable } from "react-native";
 
 interface IconProps {
@@ -27,6 +26,7 @@ interface IconProps {
   size?: number;
   color?: ThemeColors;
   onPressIcon?: () => void;
+  testID?: string;
 }
 
 const iconVariants = {
@@ -51,6 +51,7 @@ export function Icon({
   onPressIcon,
   name,
   variant,
+  testID,
   size = 20,
 }: IconProps) {
   const IconComponent = iconVariants[variant];
@@ -72,7 +73,7 @@ export function Icon({
         name={name}
         size={size}
         color={iconColor}
-        testID={TestIds.ICON}
+        testID={testID ?? TestIds.ICON}
       />
     </Pressable>
   );
