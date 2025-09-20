@@ -13,7 +13,9 @@ function customRender(ui: React.ReactElement, options?: RenderOptions) {
 
 export const wrapScreenProviders = () => {
   return ({ children }: { children: React.ReactNode }) => (
-    <NavigationContainer>{children}</NavigationContainer>
+    <NavigationContainer>
+      <KeyboardProvider>{children}</KeyboardProvider>
+    </NavigationContainer>
   );
 };
 

@@ -72,7 +72,7 @@ export function Screen({
   children,
 }: React.PropsWithChildren<ScreenProps>) {
   const Container = scrollable ? ScrollViewContainer : ViewContainer;
-  const { top } = useAppSafeArea();
+  const { top, bottom } = useAppSafeArea();
   const navigation = useNavigation();
   return (
     <KeyboardStickyView style={styles.container}>
@@ -82,6 +82,8 @@ export function Screen({
           style={[
             withHorizontalPadding && styles.content,
             { paddingTop: hasVerticalInsets ? top : 0 },
+            { flex: 1 },
+            { paddingBottom: hasVerticalInsets ? bottom : 0 },
           ]}
         >
           {canGoBack && (
