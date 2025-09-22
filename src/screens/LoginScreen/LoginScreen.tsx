@@ -11,7 +11,6 @@ import { TestIds } from "@test";
 
 export function LoginScreen({ navigation }: AuthScreenProps<"LoginScreen">) {
   const { top } = useAppSafeArea();
-  const { showToast } = useToast();
 
   const {
     control,
