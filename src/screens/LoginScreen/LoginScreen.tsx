@@ -1,5 +1,5 @@
 import { Button, FormTextInput, Screen, Text } from "@components";
-import { useAppSafeArea } from "@hooks";
+import { useAppSafeArea, useToast } from "@hooks";
 import { AuthScreenProps } from "@routes";
 import { themedStyleSheet } from "@theme";
 import { useForm } from "react-hook-form";
@@ -11,6 +11,7 @@ import { TestIds } from "@test";
 
 export function LoginScreen({ navigation }: AuthScreenProps<"LoginScreen">) {
   const { top } = useAppSafeArea();
+  const { showToast } = useToast();
 
   const {
     control,
