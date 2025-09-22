@@ -1,4 +1,4 @@
-import { KeyboardStickyView } from "react-native-keyboard-controller";
+import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
 import { ScrollViewContainer, ViewContainer } from "./Container";
 import { spacing, theme, themedStyleSheet } from "@theme";
 import { Pressable, ScrollViewProps, View, ViewProps } from "react-native";
@@ -50,6 +50,7 @@ const scrollViewProps: ScrollViewProps = {
   },
   contentContainerStyle: {
     paddingBottom: spacing.s16,
+    flexGrow: 1,
   },
 };
 
@@ -72,16 +73,18 @@ export function Screen({
   children,
 }: React.PropsWithChildren<ScreenProps>) {
   const Container = scrollable ? ScrollViewContainer : ViewContainer;
-  const { top } = useAppSafeArea();
+  const { top, bottom } = useAppSafeArea();
   const navigation = useNavigation();
   return (
-    <KeyboardStickyView style={styles.container}>
+    <KeyboardAwareScrollView style={styles.container} bounces={false}>
       <Container scrollViewProps={scrollViewProps} viewProps={viewProps}>
         <View
           testID={TestIds.SCREEN_VIEW_CONTENT}
           style={[
             withHorizontalPadding && styles.content,
             { paddingTop: hasVerticalInsets ? top : 0 },
+            { flex: 1 },
+            { paddingBottom: hasVerticalInsets ? bottom : 0 },
           ]}
         >
           {canGoBack && (
@@ -110,13 +113,14 @@ export function Screen({
           {children}
         </View>
       </Container>
-    </KeyboardStickyView>
+    </KeyboardAwareScrollView>
   );
 }
 
-const styles = themedStyleSheet(({ spacing }) => ({
+const styles = themedStyleSheet(({ spacing, colors }) => ({
   container: {
     flex: 1,
+    backgroundColor: colors.backgroundColor,
   },
 
   content: {

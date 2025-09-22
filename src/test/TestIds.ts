@@ -19,4 +19,6 @@ export enum TestIds {
   SCREEN_VIEW_CONTENT = "screen-view-content",
   SCREEN_BACK_BUTTON = "screen-back-button",
   SIGNUP_BUTTON = "signup-button",
+
+  RESULT_SCREEN_ICON = "result-screen-icon",
 }

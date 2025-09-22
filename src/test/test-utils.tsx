@@ -1,4 +1,5 @@
 import { NavigationContainer, ThemeProvider } from "@react-navigation/native";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { render, RenderOptions } from "@testing-library/react-native";
 import { ReactElement } from "react";
 import { KeyboardProvider } from "react-native-keyboard-controller";
@@ -12,8 +13,14 @@ function customRender(ui: React.ReactElement, options?: RenderOptions) {
 }
 
 export const wrapScreenProviders = () => {
+  const queryClient = new QueryClient();
+
   return ({ children }: { children: React.ReactNode }) => (
-    <NavigationContainer>{children}</NavigationContainer>
+    <QueryClientProvider client={queryClient}>
+      <NavigationContainer>
+        <KeyboardProvider>{children}</KeyboardProvider>
+      </NavigationContainer>
+    </QueryClientProvider>
   );
 };
 

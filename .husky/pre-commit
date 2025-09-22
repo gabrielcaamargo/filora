@@ -2,7 +2,7 @@ echo "Linting..."
 yarn lint
 echo "✅ Linting complete"
 
+yarn test
 
 echo "Starting tests"
-yarn test
 echo "✅ All the tests passed"
