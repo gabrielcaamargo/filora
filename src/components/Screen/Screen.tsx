@@ -117,9 +117,10 @@ export function Screen({
   );
 }
 
-const styles = themedStyleSheet(({ spacing }) => ({
+const styles = themedStyleSheet(({ spacing, colors }) => ({
   container: {
     flex: 1,
+    backgroundColor: colors.backgroundColor,
   },
 
   content: {
