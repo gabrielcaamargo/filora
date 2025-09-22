@@ -8,6 +8,7 @@ import { Routes } from "@routes";
 import { KeyboardProvider } from "react-native-keyboard-controller";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "@api";
+import Toast from "react-native-toast-message";
 
 export default function App() {
   const fontsLoaded = useFonts();
@@ -21,6 +22,7 @@ export default function App() {
       <SafeAreaProvider>
         <KeyboardProvider>
           <Routes />
+          <Toast />
         </KeyboardProvider>
       </SafeAreaProvider>
     </QueryClientProvider>

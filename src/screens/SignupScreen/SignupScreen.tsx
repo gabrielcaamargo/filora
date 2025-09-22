@@ -9,6 +9,8 @@ import { TestIds } from "@test";
 import { AuthScreenProps } from "@routes";
 import { useSignupWithEmailAndPasswordUseCase } from "@domain";
 
+import Toast from "react-native-toast-message";
+
 export function SignupScreen({ navigation }: AuthScreenProps<"SignupScreen">) {
   const { signup, isPending } = useSignupWithEmailAndPasswordUseCase({
     onSuccess: () => {
