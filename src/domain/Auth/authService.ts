@@ -5,14 +5,12 @@ import { User } from "../User/userTypes";
 export type SignupWithEmailAndPasswordParams = {
   email: string;
   password: string;
-  // fullName: string;
 };
 
 async function signupWithEmailAndPassword({
   email,
   password,
-}: // fullName,
-SignupWithEmailAndPasswordParams): Promise<User> {
+}: SignupWithEmailAndPasswordParams): Promise<User> {
   try {
     const userCredential = await firebaseAuth.signupWithEmailAndPassword(
       email,
