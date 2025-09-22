@@ -1,4 +1,6 @@
 import { User } from "@domain";
+import { StateCreator } from "zustand";
+import { Store, StoreSlice } from "../storeTypes";
 
 type UserStore = {
   data: User;
@@ -9,3 +11,16 @@ type UserActions = {
 };
 
 export type UserSlice = UserStore & UserActions;
+
+export const createUserSlice: StoreSlice<UserSlice> = (set) => ({
+  data: {
+    createdAt: "",
+    email: "",
+    id: "",
+    isNewUser: false,
+  },
+  setUser: (user) =>
+    set((prevState) => {
+      prevState.user.data = user;
+    }),
+});
