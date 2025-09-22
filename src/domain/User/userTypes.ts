@@ -1,6 +1,6 @@
 export interface User {
   isNewUser: boolean;
-  // fullName: string;
+  fullName: string;
   email: string;
   id: string;
   createdAt: string;

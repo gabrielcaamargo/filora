@@ -1,5 +1,11 @@
-import { Screen } from "@components";
+import { Screen, Text } from "@components";
+import { useUserSlice } from "@store";
 
 export function HomeScreen() {
-  return <Screen title="Home"></Screen>;
+  const { data: user } = useUserSlice();
+  return (
+    <Screen title="Home">
+      <Text>{user.fullName}</Text>
+    </Screen>
+  );
 }

@@ -25,6 +25,15 @@ async function signupWithEmailAndPassword({
   }
 }
 
+async function updateUserName(name: string) {
+  try {
+    await firebaseAuth.updateUserName(name);
+  } catch (error) {
+    throw error;
+  }
+}
+
 export const authService = {
   signupWithEmailAndPassword,
+  updateUserName,
 };
