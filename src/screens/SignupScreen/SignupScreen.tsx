@@ -7,8 +7,20 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { TestIds } from "@test";
 import { AuthScreenProps } from "@routes";
+import { useSignupWithEmailAndPasswordUseCase } from "@domain";
 
 export function SignupScreen({ navigation }: AuthScreenProps<"SignupScreen">) {
+  const { signup, isPending } = useSignupWithEmailAndPasswordUseCase({
+    onSuccess: () => {
+      navigation.navigate("ResultScreen", {
+        type: "success",
+        title: "Conta criada com sucesso",
+        message: "Entre na sua conta para continuar",
+        buttonTitle: "Ir para login",
+        onAccept: () => navigation.navigate("LoginScreen"),
+      });
+    },
+  });
   const {
     control,
     formState: { errors, isValid },
@@ -22,13 +34,7 @@ export function SignupScreen({ navigation }: AuthScreenProps<"SignupScreen">) {
   const [secureTextEntry, setSecureTextEntry] = useState(true);
 
   function handleSubmit(data: SignupSchema) {
-    navigation.navigate("ResultScreen", {
-      type: "success",
-      title: "Conta criada com sucesso",
-      message: "Entre na sua conta para continuar",
-      buttonTitle: "Ir para login",
-      onAccept: () => navigation.navigate("LoginScreen"),
-    });
+    signup(data.email, data.password);
   }
 
   return (
@@ -86,7 +92,7 @@ export function SignupScreen({ navigation }: AuthScreenProps<"SignupScreen">) {
         <Button
           title="Criar conta"
           onPress={formSubmit(handleSubmit)}
-          disabled={!isValid}
+          disabled={!isValid || isPending}
           testID={TestIds.SIGNUP_BUTTON}
         />
 
@@ -96,11 +102,13 @@ export function SignupScreen({ navigation }: AuthScreenProps<"SignupScreen">) {
           title="Entrar com Google"
           preset="outline"
           testID={TestIds.GOOGLE_SOCIAL_BUTTON}
+          disabled={isPending}
         />
         <Button
           title="Entrar com Apple"
           preset="outline"
           testID={TestIds.APPLE_SOCIAL_BUTTON}
+          disabled={isPending}
         />
       </View>
     </Screen>

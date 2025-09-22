@@ -1,6 +1,5 @@
 import { User } from "@domain";
-import { StateCreator } from "zustand";
-import { Store, StoreSlice } from "../storeTypes";
+import { StoreSlice } from "../storeTypes";
 
 type UserStore = {
   data: User;

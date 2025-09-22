@@ -1,3 +1,3 @@
 export * from "./Auth/authService";
-export * from "./Auth/useCases/signupWithEmailAndPasswordUseCase";
+export * from "./Auth/useCases/useSignupWithEmailAndPasswordUseCase";
 export * from "./User/userTypes";

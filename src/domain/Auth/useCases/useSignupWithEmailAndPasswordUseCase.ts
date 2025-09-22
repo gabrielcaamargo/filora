@@ -2,17 +2,20 @@ import { useMutation } from "@tanstack/react-query";
 import { authService, SignupWithEmailAndPasswordParams } from "../authService";
 import { User } from "@domain";
 import { MutationOptions } from "@api";
+import { useUserSlice } from "@store";
 
-export function signupWithEmailAndPasswordUseCase(
+export function useSignupWithEmailAndPasswordUseCase(
   options: MutationOptions<User>
 ) {
-  const { mutate, isPending, data } = useMutation<
+  const { setUser } = useUserSlice();
+  const { mutate, isPending } = useMutation<
     User,
     Error,
     SignupWithEmailAndPasswordParams
   >({
     mutationFn: authService.signupWithEmailAndPassword,
     onSuccess: (data) => {
+      setUser(data);
       options.onSuccess?.(data);
     },
 
