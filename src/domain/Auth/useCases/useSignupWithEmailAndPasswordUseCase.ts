@@ -5,6 +5,7 @@ import { MutationOptions } from "@api";
 import { useUserSlice } from "@store";
 import { useUpdateUserNameUseCase } from "./useUpdateUserNameUseCase";
 import { useToast } from "@hooks";
+import { saveUser } from "@database";
 
 type SignupWithNameParams = SignupWithEmailAndPasswordParams & {
   fullName: string;
@@ -32,9 +33,9 @@ export function useSignupWithEmailAndPasswordUseCase(
 
       return updateUser;
     },
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
       setUser(data);
-
+      await saveUser(data);
       showToast(
         "success",
         "Conta criada com sucesso",
