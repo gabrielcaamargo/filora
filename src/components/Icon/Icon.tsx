@@ -14,7 +14,7 @@ import {
   SimpleLineIcons,
   Zocial,
 } from "@expo/vector-icons";
-import { IconVariant } from "./icon.types";
+import { IconVariant } from "./iconTypes";
 import { ThemeColors } from "@theme";
 import { useTheme } from "@hooks";
 import { TestIds } from "@test";

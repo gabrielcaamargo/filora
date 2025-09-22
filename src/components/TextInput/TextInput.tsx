@@ -8,7 +8,7 @@ import { Text } from "../Text/Text";
 import { TestIds } from "@test";
 import { themedStyleSheet } from "@theme";
 import { useRef } from "react";
-import { IconVariant } from "../Icon/icon.types";
+import { IconVariant } from "../Icon/iconTypes";
 import { Icon } from "../Icon/Icon";
 import { useTheme } from "@hooks";
 
