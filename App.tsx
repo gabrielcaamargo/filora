@@ -1,3 +1,7 @@
+if (__DEV__) {
+  require("./ReactotronConfig");
+}
+
 import { useFonts } from "@hooks";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Routes } from "@routes";

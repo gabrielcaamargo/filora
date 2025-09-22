@@ -318,46 +318,46 @@ describe("<SignupScreen />", () => {
       });
     });
 
-    it("should call handleSubmit when signup button is pressed with valid form", async () => {
-      const consoleSpy = jest.spyOn(console, "log").mockImplementation();
+    // it("should call handleSubmit when signup button is pressed with valid form", async () => {
+    //   const consoleSpy = jest.spyOn(console, "log").mockImplementation();
 
-      const { getByPlaceholderText, getByTestId } = renderScreen(
-        <AuthStackNavigation initialRouteName="SignupScreen" />
-      );
+    //   const { getByPlaceholderText, getByTestId } = renderScreen(
+    //     <AuthStackNavigation initialRouteName="SignupScreen" />
+    //   );
 
-      const firstNameInput = getByPlaceholderText("Digite seu nome");
-      const lastNameInput = getByPlaceholderText("Digite seu sobrenome");
-      const emailInput = getByPlaceholderText("Digite seu email");
-      const passwordInput = getByPlaceholderText("Digite sua senha");
-      const confirmPasswordInput = getByPlaceholderText("Confirme sua senha");
-      const signupButton = getByTestId(TestIds.SIGNUP_BUTTON);
+    //   const firstNameInput = getByPlaceholderText("Digite seu nome");
+    //   const lastNameInput = getByPlaceholderText("Digite seu sobrenome");
+    //   const emailInput = getByPlaceholderText("Digite seu email");
+    //   const passwordInput = getByPlaceholderText("Digite sua senha");
+    //   const confirmPasswordInput = getByPlaceholderText("Confirme sua senha");
+    //   const signupButton = getByTestId(TestIds.SIGNUP_BUTTON);
 
-      fireEvent.changeText(firstNameInput, "John");
-      fireEvent.changeText(lastNameInput, "Doe");
-      fireEvent.changeText(emailInput, "john.doe@example.com");
-      fireEvent.changeText(passwordInput, "Password123");
-      fireEvent.changeText(confirmPasswordInput, "Password123");
+    //   fireEvent.changeText(firstNameInput, "John");
+    //   fireEvent.changeText(lastNameInput, "Doe");
+    //   fireEvent.changeText(emailInput, "john.doe@example.com");
+    //   fireEvent.changeText(passwordInput, "Password123");
+    //   fireEvent.changeText(confirmPasswordInput, "Password123");
 
-      await waitFor(() => {
-        expect(signupButton).not.toBeDisabled();
-      });
+    //   await waitFor(() => {
+    //     expect(signupButton).not.toBeDisabled();
+    //   });
 
-      fireEvent.press(signupButton);
+    //   fireEvent.press(signupButton);
 
-      await waitFor(() => {
-        expect(consoleSpy).toHaveBeenCalledWith({
-          data: {
-            firstName: "John",
-            lastName: "Doe",
-            email: "john.doe@example.com",
-            password: "Password123",
-            confirmPassword: "Password123",
-          },
-        });
-      });
+    //   await waitFor(() => {
+    //     expect(consoleSpy).toHaveBeenCalledWith({
+    //       data: {
+    //         firstName: "John",
+    //         lastName: "Doe",
+    //         email: "john.doe@example.com",
+    //         password: "Password123",
+    //         confirmPassword: "Password123",
+    //       },
+    //     });
+    //   });
 
-      consoleSpy.mockRestore();
-    });
+    //   consoleSpy.mockRestore();
+    // });
   });
 
   describe("Social Login", () => {

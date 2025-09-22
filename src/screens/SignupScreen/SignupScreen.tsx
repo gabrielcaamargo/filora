@@ -6,8 +6,9 @@ import { signupSchema, SignupSchema } from "./SignupSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { TestIds } from "@test";
+import { AuthScreenProps } from "@routes";
 
-export function SignupScreen() {
+export function SignupScreen({ navigation }: AuthScreenProps<"SignupScreen">) {
   const {
     control,
     formState: { errors, isValid },
@@ -21,7 +22,13 @@ export function SignupScreen() {
   const [secureTextEntry, setSecureTextEntry] = useState(true);
 
   function handleSubmit(data: SignupSchema) {
-    console.log({ data });
+    navigation.navigate("ResultScreen", {
+      type: "success",
+      title: "Conta criada com sucesso",
+      message: "Entre na sua conta para continuar",
+      buttonTitle: "Ir para login",
+      onAccept: () => navigation.navigate("LoginScreen"),
+    });
   }
 
   return (
