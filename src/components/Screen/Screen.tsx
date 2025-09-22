@@ -1,4 +1,4 @@
-import { KeyboardStickyView } from "react-native-keyboard-controller";
+import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
 import { ScrollViewContainer, ViewContainer } from "./Container";
 import { spacing, theme, themedStyleSheet } from "@theme";
 import { Pressable, ScrollViewProps, View, ViewProps } from "react-native";
@@ -50,6 +50,7 @@ const scrollViewProps: ScrollViewProps = {
   },
   contentContainerStyle: {
     paddingBottom: spacing.s16,
+    flexGrow: 1,
   },
 };
 
@@ -75,7 +76,7 @@ export function Screen({
   const { top, bottom } = useAppSafeArea();
   const navigation = useNavigation();
   return (
-    <KeyboardStickyView style={styles.container}>
+    <KeyboardAwareScrollView style={styles.container} bounces={false}>
       <Container scrollViewProps={scrollViewProps} viewProps={viewProps}>
         <View
           testID={TestIds.SCREEN_VIEW_CONTENT}
@@ -112,7 +113,7 @@ export function Screen({
           {children}
         </View>
       </Container>
-    </KeyboardStickyView>
+    </KeyboardAwareScrollView>
   );
 }
 

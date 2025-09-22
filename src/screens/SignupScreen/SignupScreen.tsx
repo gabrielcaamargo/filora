@@ -21,6 +21,7 @@ export function SignupScreen({ navigation }: AuthScreenProps<"SignupScreen">) {
       });
     },
   });
+
   const {
     control,
     formState: { errors, isValid },
