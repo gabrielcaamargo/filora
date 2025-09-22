@@ -37,7 +37,9 @@ export function SignupScreen({ navigation }: AuthScreenProps<"SignupScreen">) {
   const [secureTextEntry, setSecureTextEntry] = useState(true);
 
   function handleSubmit(data: SignupSchema) {
-    signup(data.email, data.password);
+    const fullName = data.firstName + " " + data.lastName;
+
+    signup(data.email, data.password, fullName);
   }
 
   return (

@@ -5,7 +5,7 @@ function firebaseAuthToUser(
   userCredential: FirebaseAuthTypes.UserCredential
 ): User {
   return {
-    // fullName: userCredential.user.displayName ?? "",
+    fullName: userCredential.user.displayName ?? "",
     id: userCredential.user.uid,
     email: userCredential.user.email ?? "",
     isNewUser: userCredential?.additionalUserInfo?.isNewUser ?? false,
