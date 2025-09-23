@@ -2,4 +2,6 @@ import { Storage } from "./storageTypes";
 
 let storage: Storage;
 
-function initializeStorage(storageImplementation: Storage) {}
+export function initializeStorage(storageImplementation: Storage) {
+  storage = storageImplementation;
+}
