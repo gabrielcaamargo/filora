@@ -38,7 +38,7 @@ export function useSignupWithEmailAndPasswordUseCase(
       showToast(
         "success",
         "Conta criada com sucesso",
-        "Você agora pode aproveitar o DocuScan"
+        "Você agora pode aproveitar o Filora"
       );
       options.onSuccess?.(data);
     },
