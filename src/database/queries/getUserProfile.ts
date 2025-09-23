@@ -1,6 +1,7 @@
 import firestore from "@react-native-firebase/firestore";
 import { DatabaseCollections } from "../databaseTypes";
 import { getAuth } from "@react-native-firebase/auth";
+import { User } from "@domain";
 
 export async function getUserProfile() {
   const userId = getAuth().currentUser?.uid;
@@ -13,5 +14,5 @@ export async function getUserProfile() {
     .collection(DatabaseCollections.USERS)
     .doc(userId)
     .get();
-  return user.data();
+  return user.data() as User;
 }

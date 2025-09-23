@@ -1,2 +1,2 @@
 export * from "./queries/saveUser";
-export * from "./queries/getUser";
+export * from "./queries/getUserProfile";
