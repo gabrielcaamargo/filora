@@ -1,7 +1,4 @@
-import {
-  sharedAuthProviders,
-  sharedAuthMethods,
-} from "../../../../workspace/nurse-mobile-app/__mocks__/@react-native-firebase/auth";
+import { sharedAuthProviders, sharedAuthMethods } from "./auth";
 
 const mockAuth = {
   ...sharedAuthMethods,
