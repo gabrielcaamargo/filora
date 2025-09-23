@@ -4,4 +4,5 @@ export interface User {
   email: string;
   id?: string;
   createdAt?: string;
+  emailVerified: boolean;
 }

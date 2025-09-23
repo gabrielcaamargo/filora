@@ -2,7 +2,7 @@ import { User } from "@domain";
 import firestore from "@react-native-firebase/firestore";
 import { DatabaseCollections } from "../databaseTypes";
 
-export async function saveUser(user: Partial<User>) {
+export async function saveUser(user: User) {
   try {
     await firestore()
       .collection(DatabaseCollections.USERS)
@@ -10,6 +10,7 @@ export async function saveUser(user: Partial<User>) {
       .set(
         {
           ...user,
+          emailVerified: false,
           createdAt: firestore.FieldValue.serverTimestamp(),
         },
         { merge: true }
