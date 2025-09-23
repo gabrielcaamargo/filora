@@ -2,8 +2,8 @@ import { ConfigContext, ExpoConfig } from "expo/config";
 import "tsx/cjs";
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
-  name: "DocuScanApp",
-  slug: "DocuScanApp",
+  name: "Filora",
+  slug: "filora",
   version: "1.0.0",
   orientation: "portrait",
   icon: "./assets/icon.png",
@@ -16,7 +16,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   },
   ios: {
     supportsTablet: true,
-    bundleIdentifier: "com.gabrielcaamargo.DocuScanApp",
+    bundleIdentifier: "com.gabrielcaamargo.filora",
     googleServicesFile: "./GoogleService-Info.plist",
   },
   android: {
@@ -25,7 +25,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       backgroundColor: "#ffffff",
     },
     edgeToEdgeEnabled: true,
-    package: "com.gabrielcaamargo.DocuScanApp",
+    package: "com.gabrielcaamargo.filora",
     googleServicesFile: "./google-services.json",
   },
   web: {
