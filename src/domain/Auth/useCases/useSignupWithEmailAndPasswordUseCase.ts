@@ -3,7 +3,6 @@ import { authService, SignupWithEmailAndPasswordParams } from "../authService";
 import { User } from "@domain";
 import { MutationOptions } from "@api";
 import { useUserSlice } from "@store";
-import { useUpdateUserNameUseCase } from "./useUpdateUserNameUseCase";
 import { useToast } from "@hooks";
 import { saveUser } from "@database";
 
@@ -15,8 +14,8 @@ export function useSignupWithEmailAndPasswordUseCase(
   options: MutationOptions<User>
 ) {
   const { setUser } = useUserSlice();
-  const { updateUserName } = useUpdateUserNameUseCase();
   const { showToast } = useToast();
+
   const { mutate, isPending } = useMutation<User, Error, SignupWithNameParams>({
     mutationFn: async ({ email, password, fullName }) => {
       const user = await authService.signupWithEmailAndPassword({
@@ -24,18 +23,18 @@ export function useSignupWithEmailAndPasswordUseCase(
         password,
       });
 
-      updateUserName(fullName);
-
-      const updateUser = {
+      await saveUser({
         ...user,
         fullName,
-      };
+      });
 
-      return updateUser;
+      const userProfile = await authService.getUserProfile();
+
+      return userProfile;
     },
     onSuccess: async (data) => {
       setUser(data);
-      await saveUser(data);
+
       showToast(
         "success",
         "Conta criada com sucesso",
