@@ -17,6 +17,8 @@ export const createUserSlice: StoreSlice<UserSlice> = (set) => ({
     email: "",
     id: "",
     isNewUser: false,
+    emailVerified: false,
+    fullName: "",
   },
   setUser: (user) =>
     set((prevState) => {

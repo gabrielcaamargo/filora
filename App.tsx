@@ -9,11 +9,11 @@ import { KeyboardProvider } from "react-native-keyboard-controller";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "@api";
 import Toast from "react-native-toast-message";
-import { initializeStorage, mmkvImplementation } from "@storage";
+import { initializeStorage, MMKVStorage } from "@storage";
 
 export default function App() {
   const fontsLoaded = useFonts();
-  initializeStorage(mmkvImplementation);
+  initializeStorage(MMKVStorage);
 
   if (!fontsLoaded) {
     return null;
