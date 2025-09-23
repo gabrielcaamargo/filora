@@ -72,7 +72,7 @@
       "index"
     ],
     "collectCoverageFrom": [
-      "src/{components,utils,hooks}/**/*.{ts,js,tsx,jsx}"
+      "src/{components,utils,hooks,domain,database}/**/*.{ts,js,tsx,jsx}"
     ],
     "moduleDirectories": [
       "node_modules",
