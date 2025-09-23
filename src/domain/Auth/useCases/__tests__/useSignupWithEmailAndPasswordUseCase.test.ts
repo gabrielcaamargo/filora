@@ -284,7 +284,7 @@ describe("useSignupWithEmailAndPasswordUseCase", () => {
       expect(mockShowToast).toHaveBeenCalledWith(
         "success",
         "Conta criada com sucesso",
-        "Você agora pode aproveitar o DocuScan"
+        "Você agora pode aproveitar o Filora"
       );
     });
 
