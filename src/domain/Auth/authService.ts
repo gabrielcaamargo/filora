@@ -1,6 +1,7 @@
 import { firebaseAuth } from "@lib";
 import { userAdapter } from "../User/userAdapter";
 import { User } from "../User/userTypes";
+import { getUserProfile as getUserProfileQuery } from "@database";
 
 export type SignupWithEmailAndPasswordParams = {
   email: string;
@@ -25,9 +26,11 @@ async function signupWithEmailAndPassword({
   }
 }
 
-async function updateUserName(name: string) {
+async function getUserProfile() {
   try {
-    await firebaseAuth.updateUserName(name);
+    const user = await getUserProfileQuery();
+
+    return user;
   } catch (error) {
     throw error;
   }
@@ -35,5 +38,5 @@ async function updateUserName(name: string) {
 
 export const authService = {
   signupWithEmailAndPassword,
-  updateUserName,
+  getUserProfile,
 };
