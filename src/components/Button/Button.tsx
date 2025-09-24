@@ -19,6 +19,14 @@ const buttonPresets: Record<ButtonPreset, ThemedStyleSheet> = {
     title: {
       color: colors.white,
     },
+
+    disabled: {
+      backgroundColor: colors.grayLight,
+    },
+
+    disabledTitle: {
+      color: colors.grayMain,
+    },
   })),
   outline: themedStyleSheet(({ colors }) => ({
     container: {
@@ -29,6 +37,15 @@ const buttonPresets: Record<ButtonPreset, ThemedStyleSheet> = {
 
     title: {
       color: colors.primaryColor,
+    },
+
+    disabled: {
+      backgroundColor: colors.grayLight,
+      borderColor: colors.grayLight,
+    },
+
+    disabledTitle: {
+      color: colors.grayMain,
     },
   })),
 };
@@ -43,23 +60,32 @@ export function Button({
 
   return (
     <TouchableOpacity
-      style={[defaultStyles.container, styles.container, style]}
+      style={[
+        defaultStyles.container,
+        styles.container,
+        style,
+        props.disabled && styles.disabled,
+      ]}
       testID={TestIds.BUTTON}
       {...props}
     >
-      <Text weight="Medium" style={styles.title}>
+      <Text
+        weight="Medium"
+        style={[styles.title, props.disabled && styles.disabledTitle]}
+      >
         {title}
       </Text>
     </TouchableOpacity>
   );
 }
 
-const defaultStyles = themedStyleSheet(({ colors, spacing, radius }) => ({
+const defaultStyles = themedStyleSheet(({ spacing, radius }) => ({
   container: {
     borderRadius: radius.s8,
     paddingHorizontal: spacing.s16,
     paddingVertical: spacing.s8,
     alignItems: "center",
     justifyContent: "center",
+    height: 48,
   },
 }));
