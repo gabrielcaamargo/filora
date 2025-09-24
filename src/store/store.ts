@@ -6,18 +6,29 @@ import { createUserSlice } from "./slices/userSlice";
 import { storage } from "@storage";
 
 export const useStore = create<Store>()(
-  immer(
-    persist(
-      (...params) => ({
-        user: createUserSlice(...params),
+  persist(
+    immer((...params) => ({
+      user: createUserSlice(...params),
+    })),
+    {
+      name: "@Store",
+      storage: createJSONStorage(() => storage),
+      partialize: (state) => ({
+        user: { data: state.user.data },
       }),
-      {
-        name: "@Store",
-        storage: createJSONStorage(() => storage),
-        onRehydrateStorage: () => (state) => {
+      merge: (persistedState, currentState) => {
+        return {
+          user: {
+            ...currentState.user,
+            ...(persistedState as Store).user,
+          },
+        };
+      },
+      onRehydrateStorage: () => (state) => {
+        if (__DEV__) {
           console.log("Rehydrating store with:", state);
-        },
-      }
-    )
+        }
+      },
+    }
   )
 );

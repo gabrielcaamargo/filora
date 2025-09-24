@@ -1,17 +1,17 @@
 import { Button, Screen, Text } from "@components";
-import { User } from "@domain";
-import { MMKVStorage, storage } from "@storage";
+import { useLogOutUseCase } from "@domain";
 import { useUserSlice } from "@store";
-import { useEffect } from "react";
 
 export function HomeScreen() {
-  const { user, clearUser } = useUserSlice();
+  const { user } = useUserSlice();
+
+  const { logOut, isPending } = useLogOutUseCase({});
 
   return (
     <Screen title="Home">
       <Text>{JSON.stringify(user)}</Text>
 
-      <Button title="Logout" onPress={() => clearUser()} />
+      <Button title="Logout" onPress={logOut} disabled={isPending} />
     </Screen>
   );
 }

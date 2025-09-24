@@ -18,8 +18,9 @@ export const createUserSlice: StoreSlice<UserSlice> = (set) => ({
     set((prevState) => {
       prevState.user.data = user;
     }),
-  clearUser: () =>
+  clearUser: () => {
     set((prevState) => {
       prevState.user.data = null;
-    }),
+    });
+  },
 });
