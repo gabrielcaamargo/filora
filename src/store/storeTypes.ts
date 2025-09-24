@@ -7,7 +7,7 @@ export type Store = {
 
 export type StoreSlice<T> = StateCreator<
   Store,
-  [["zustand/immer", never], ["zustand/persist", unknown]],
+  [["zustand/persist", unknown], ["zustand/immer", never]],
   [],
   T
 >;
