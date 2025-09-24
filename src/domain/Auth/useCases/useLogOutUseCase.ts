@@ -2,13 +2,14 @@ import { MutationOptions } from "@api";
 import { useToast } from "@hooks";
 import { useMutation } from "@tanstack/react-query";
 import { authService } from "../authService";
+import { useUserSlice } from "@store";
 
 export function useLogOutUseCase({
   onSuccess,
   onError,
 }: MutationOptions<void>) {
   const { showToast } = useToast();
-
+  const { clearUser } = useUserSlice();
   const { mutate, isPending } = useMutation<void, Error, void>({
     mutationFn: authService.logOut,
     onSuccess: () => {
@@ -17,6 +18,7 @@ export function useLogOutUseCase({
         "Sessão encerrada com sucesso",
         "Sua sessão foi encerrada. Voltando para a tela de login."
       );
+      clearUser();
       onSuccess?.();
     },
 
