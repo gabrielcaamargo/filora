@@ -3,6 +3,7 @@ import {
   createUserWithEmailAndPassword,
   FirebaseAuthTypes,
   signOut,
+  signInWithEmailAndPassword,
 } from "@react-native-firebase/auth";
 
 async function signupWithEmailAndPassword(
@@ -28,6 +29,21 @@ async function logOut() {
   }
 
   await signOut(auth);
+}
+
+async function logInWithEmailAndPassword(
+  email: string,
+  password: string
+): Promise<FirebaseAuthTypes.UserCredential> {
+  const auth = getAuth();
+
+  const userCredentials = await signInWithEmailAndPassword(
+    auth,
+    email,
+    password
+  );
+
+  return userCredentials;
 }
 
 export const firebaseAuth = {
