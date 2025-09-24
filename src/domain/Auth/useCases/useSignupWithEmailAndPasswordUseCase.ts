@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { authService, SignupWithEmailAndPasswordParams } from "../authService";
 import { User } from "@domain";
-import { MutationOptions } from "@api";
+import { errorHandler, MutationOptions } from "@api";
 import { useUserSlice } from "@store";
 import { useToast } from "@hooks";
 import { saveUser } from "@database";
@@ -44,7 +44,8 @@ export function useSignupWithEmailAndPasswordUseCase(
     },
 
     onError: (error) => {
-      options.onError?.(error.message);
+      showToast("error", "Erro ao criar conta", errorHandler(error.message));
+      options.onError?.(errorHandler(error.message));
     },
   });
 
