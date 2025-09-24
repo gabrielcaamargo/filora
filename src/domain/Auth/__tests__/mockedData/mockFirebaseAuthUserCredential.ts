@@ -1,0 +1,45 @@
+import { FirebaseAuthTypes } from "@react-native-firebase/auth";
+
+export const mockFirebaseAuthUserCredential: FirebaseAuthTypes.UserCredential =
+  {
+    user: {
+      uid: "test-uid-123",
+      email: "test@example.com",
+      displayName: "John Doe",
+      emailVerified: false,
+      isAnonymous: false,
+      metadata: {
+        creationTime: "2024-01-15T10:30:00.000Z",
+        lastSignInTime: "2024-01-15T10:30:00.000Z",
+      },
+      multiFactor: {} as any,
+      phoneNumber: null,
+      photoURL: null,
+      providerId: "firebase",
+      providerData: [],
+      delete: jest.fn(),
+      getIdToken: jest.fn(),
+      getIdTokenResult: jest.fn(),
+      reload: jest.fn(),
+      toJSON: jest.fn(),
+      linkWithCredential: jest.fn(),
+      linkWithPopup: jest.fn(),
+      linkWithRedirect: jest.fn(),
+      reauthenticateWithCredential: jest.fn(),
+      reauthenticateWithPopup: jest.fn(),
+      reauthenticateWithRedirect: jest.fn(),
+      sendEmailVerification: jest.fn(),
+      unlink: jest.fn(),
+      updateEmail: jest.fn(),
+      updatePassword: jest.fn(),
+      updatePhoneNumber: jest.fn(),
+      updateProfile: jest.fn(),
+      verifyBeforeUpdateEmail: jest.fn(),
+    },
+    additionalUserInfo: {
+      isNewUser: true,
+      providerId: "password",
+      profile: {},
+      username: undefined,
+    },
+  };

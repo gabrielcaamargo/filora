@@ -1,14 +1,21 @@
-import { authService, SignupWithEmailAndPasswordParams } from "../authService";
+import {
+  authService,
+  LoginWithEmailAndPasswordParams,
+  SignupWithEmailAndPasswordParams,
+} from "../authService";
 import { firebaseAuth } from "@lib";
 import { userAdapter } from "../../User/userAdapter";
 import { getUserProfile as getUserProfileQuery } from "@database";
 import { User } from "../../User/userTypes";
 import { FirebaseAuthTypes } from "@react-native-firebase/auth";
+import { mockFirebaseAuthUserCredential } from "./mockedData/mockFirebaseAuthUserCredential";
+import { mockUser } from "./mockedData/mockUser";
 
 jest.mock("@lib", () => ({
   firebaseAuth: {
     signupWithEmailAndPassword: jest.fn(),
     logOut: jest.fn(),
+    logInWithEmailAndPassword: jest.fn(),
   },
 }));
 
@@ -35,58 +42,6 @@ describe("authService", () => {
   });
 
   describe("signupWithEmailAndPassword", () => {
-    const mockUserCredential: FirebaseAuthTypes.UserCredential = {
-      user: {
-        uid: "test-uid-123",
-        email: "test@example.com",
-        displayName: "John Doe",
-        emailVerified: false,
-        isAnonymous: false,
-        metadata: {
-          creationTime: "2024-01-15T10:30:00.000Z",
-          lastSignInTime: "2024-01-15T10:30:00.000Z",
-        },
-        phoneNumber: null,
-        photoURL: null,
-        providerId: "firebase",
-        providerData: [],
-        multiFactor: {} as any,
-        delete: jest.fn(),
-        getIdToken: jest.fn(),
-        getIdTokenResult: jest.fn(),
-        reload: jest.fn(),
-        toJSON: jest.fn(),
-        linkWithCredential: jest.fn(),
-        linkWithPopup: jest.fn(),
-        linkWithRedirect: jest.fn(),
-        reauthenticateWithCredential: jest.fn(),
-        reauthenticateWithPopup: jest.fn(),
-        reauthenticateWithRedirect: jest.fn(),
-        sendEmailVerification: jest.fn(),
-        unlink: jest.fn(),
-        updateEmail: jest.fn(),
-        updatePassword: jest.fn(),
-        updatePhoneNumber: jest.fn(),
-        updateProfile: jest.fn(),
-        verifyBeforeUpdateEmail: jest.fn(),
-      },
-      additionalUserInfo: {
-        isNewUser: true,
-        providerId: "password",
-        profile: {},
-        username: undefined,
-      },
-    };
-
-    const mockUser: User = {
-      id: "test-uid-123",
-      email: "test@example.com",
-      fullName: "John Doe",
-      isNewUser: true,
-      createdAt: "2024-01-15T10:30:00.000Z",
-      emailVerified: false,
-    };
-
     const signupParams: SignupWithEmailAndPasswordParams = {
       email: "test@example.com",
       password: "password123",
@@ -94,21 +49,19 @@ describe("authService", () => {
 
     it("should successfully signup a user with email and password", async () => {
       mockFirebaseAuth.signupWithEmailAndPassword.mockResolvedValue(
-        mockUserCredential
+        mockFirebaseAuthUserCredential
       );
       mockUserAdapter.firebaseAuthToUser.mockReturnValue(mockUser);
 
       const result = await authService.signupWithEmailAndPassword(signupParams);
 
       expect(mockFirebaseAuth.signupWithEmailAndPassword).toHaveBeenCalledWith(
-        "test@example.com",
-        "password123"
+        signupParams.email,
+        signupParams.password
       );
-      expect(mockFirebaseAuth.signupWithEmailAndPassword).toHaveBeenCalled();
       expect(mockUserAdapter.firebaseAuthToUser).toHaveBeenCalledWith(
-        mockUserCredential
+        mockFirebaseAuthUserCredential
       );
-      expect(mockUserAdapter.firebaseAuthToUser).toHaveBeenCalled();
       expect(result).toEqual(mockUser);
     });
 
@@ -255,6 +208,81 @@ describe("authService", () => {
       );
 
       expect(mockFirebaseAuth.logOut).toHaveBeenCalledWith();
+    });
+  });
+
+  describe("loginWithEmailAndPassword", () => {
+    const loginParams: LoginWithEmailAndPasswordParams = {
+      email: "test@example.com",
+      password: "password123",
+    };
+
+    it("should successfully login a user with email and password", async () => {
+      mockFirebaseAuth.logInWithEmailAndPassword.mockResolvedValue(
+        mockFirebaseAuthUserCredential
+      );
+      mockUserAdapter.firebaseAuthToUser.mockReturnValue(mockUser);
+
+      const result = await authService.loginWithEmailAndPassword(loginParams);
+
+      expect(mockFirebaseAuth.logInWithEmailAndPassword).toHaveBeenCalledWith(
+        loginParams.email,
+        loginParams.password
+      );
+      expect(mockUserAdapter.firebaseAuthToUser).toHaveBeenCalledWith(
+        mockFirebaseAuthUserCredential
+      );
+      expect(result).toEqual(mockUser);
+    });
+
+    it("should throw an error when Firebase authentication fails", async () => {
+      const firebaseError = new Error("Firebase: Invalid email format");
+      mockFirebaseAuth.logInWithEmailAndPassword.mockRejectedValue(
+        firebaseError
+      );
+
+      await expect(
+        authService.loginWithEmailAndPassword(loginParams)
+      ).rejects.toThrow("Firebase: Invalid email format");
+
+      expect(mockFirebaseAuth.logInWithEmailAndPassword).toHaveBeenCalledWith(
+        loginParams.email,
+        loginParams.password
+      );
+    });
+
+    it("should handle empty email", async () => {
+      const emptyEmailParams = { email: "", password: "password123" };
+      const firebaseError = new Error("Firebase: Email is required");
+      mockFirebaseAuth.logInWithEmailAndPassword.mockRejectedValue(
+        firebaseError
+      );
+
+      await expect(
+        authService.loginWithEmailAndPassword(emptyEmailParams)
+      ).rejects.toThrow("Firebase: Email is required");
+
+      expect(mockFirebaseAuth.logInWithEmailAndPassword).toHaveBeenCalledWith(
+        "",
+        "password123"
+      );
+    });
+
+    it("should handle empty password", async () => {
+      const emptyPasswordParams = { email: "test@example.com", password: "" };
+      const firebaseError = new Error("Firebase: Password is required");
+      mockFirebaseAuth.logInWithEmailAndPassword.mockRejectedValue(
+        firebaseError
+      );
+
+      await expect(
+        authService.loginWithEmailAndPassword(emptyPasswordParams)
+      ).rejects.toThrow("Firebase: Password is required");
+
+      expect(mockFirebaseAuth.logInWithEmailAndPassword).toHaveBeenCalledWith(
+        "test@example.com",
+        ""
+      );
     });
   });
 });
