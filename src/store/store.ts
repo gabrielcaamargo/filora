@@ -6,13 +6,18 @@ import { createUserSlice } from "./slices/userSlice";
 import { storage } from "@storage";
 
 export const useStore = create<Store>()(
-  persist(
-    immer((...params) => ({
-      user: createUserSlice(...params),
-    })),
-    {
-      name: "@Store",
-      storage,
-    }
+  immer(
+    persist(
+      (...params) => ({
+        user: createUserSlice(...params),
+      }),
+      {
+        name: "@Store",
+        storage: createJSONStorage(() => storage),
+        onRehydrateStorage: () => (state) => {
+          console.log("Rehydrating store with:", state);
+        },
+      }
+    )
   )
 );
