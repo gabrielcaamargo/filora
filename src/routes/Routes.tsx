@@ -4,11 +4,10 @@ import { useUserSlice } from "@store";
 import { AppStackNavigation } from "./AppStackNavigation";
 
 export function Routes() {
-  const { data: user } = useUserSlice();
-
+  const { user } = useUserSlice();
   return (
     <NavigationContainer>
-      {user.id ? <AppStackNavigation /> : <AuthStackNavigation />}
+      {user?.id ? <AppStackNavigation /> : <AuthStackNavigation />}
     </NavigationContainer>
   );
 }

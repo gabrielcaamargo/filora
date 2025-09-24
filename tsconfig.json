@@ -18,6 +18,7 @@
       "@utils": ["./src/utils"],
       "@store": ["./src/store"],
       "@test": ["./src/test"],
+      "@storage": ["./src/storage"],
       "test-utils": ["./src/test/test-utils"]
     }
   }

@@ -20,6 +20,7 @@ module.exports = {
           "@store": "./src/store",
           "@test": "./src/test",
           "@database": "./src/database",
+          "@storage": "./src/storage",
         },
       },
     ],

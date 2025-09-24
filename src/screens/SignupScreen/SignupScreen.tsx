@@ -4,12 +4,13 @@ import { useForm } from "react-hook-form";
 import { View } from "react-native";
 import { signupSchema, SignupSchema } from "./SignupSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TestIds } from "@test";
 import { AuthScreenProps } from "@routes";
 import { useSignupWithEmailAndPasswordUseCase } from "@domain";
 
 import Toast from "react-native-toast-message";
+import { storage } from "@storage";
 
 export function SignupScreen({ navigation }: AuthScreenProps<"SignupScreen">) {
   const { signup, isPending } = useSignupWithEmailAndPasswordUseCase({
