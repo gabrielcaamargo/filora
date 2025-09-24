@@ -8,6 +8,7 @@ import { FirebaseAuthTypes } from "@react-native-firebase/auth";
 jest.mock("@lib", () => ({
   firebaseAuth: {
     signupWithEmailAndPassword: jest.fn(),
+    logOut: jest.fn(),
   },
 }));
 
@@ -215,6 +216,45 @@ describe("authService", () => {
       );
 
       expect(mockGetUserProfileQuery).toHaveBeenCalledWith();
+    });
+  });
+
+  describe("logOut", () => {
+    it("should successfully log out user", async () => {
+      mockFirebaseAuth.logOut.mockResolvedValue(undefined);
+
+      await expect(authService.logOut()).resolves.not.toThrow();
+
+      expect(mockFirebaseAuth.logOut).toHaveBeenCalledWith();
+    });
+
+    it("should throw an error when Firebase logOut fails", async () => {
+      const logOutError = new Error("Failed to log out");
+      mockFirebaseAuth.logOut.mockRejectedValue(logOutError);
+
+      await expect(authService.logOut()).rejects.toThrow("Failed to log out");
+
+      expect(mockFirebaseAuth.logOut).toHaveBeenCalledWith();
+    });
+
+    it("should throw an error when network connection fails", async () => {
+      const networkError = new Error("Network error");
+      mockFirebaseAuth.logOut.mockRejectedValue(networkError);
+
+      await expect(authService.logOut()).rejects.toThrow("Network error");
+
+      expect(mockFirebaseAuth.logOut).toHaveBeenCalledWith();
+    });
+
+    it("should throw an error when user is not authenticated", async () => {
+      const authError = new Error("User not authenticated");
+      mockFirebaseAuth.logOut.mockRejectedValue(authError);
+
+      await expect(authService.logOut()).rejects.toThrow(
+        "User not authenticated"
+      );
+
+      expect(mockFirebaseAuth.logOut).toHaveBeenCalledWith();
     });
   });
 });
