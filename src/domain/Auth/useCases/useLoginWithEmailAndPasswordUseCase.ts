@@ -4,6 +4,7 @@ import { authService, LoginWithEmailAndPasswordParams } from "../authService";
 import { useToast } from "@hooks";
 import { useMutation } from "@tanstack/react-query";
 import { useUserSlice } from "@store";
+import { saveUser } from "@database";
 
 export function useLoginWithEmailAndPasswordUseCase({
   onSuccess,
@@ -17,7 +18,20 @@ export function useLoginWithEmailAndPasswordUseCase({
     Error,
     LoginWithEmailAndPasswordParams
   >({
-    mutationFn: authService.loginWithEmailAndPassword,
+    mutationFn: async (data) => {
+      const user = await authService.loginWithEmailAndPassword(data);
+      const userProfile = await authService.getUserProfile();
+
+      if (!user.isNewUser) {
+        userProfile.isNewUser = false;
+        saveUser({
+          ...userProfile,
+          isNewUser: false,
+        });
+      }
+
+      return userProfile;
+    },
     onSuccess: (data) => {
       showToast(
         "success",
@@ -29,6 +43,7 @@ export function useLoginWithEmailAndPasswordUseCase({
     },
 
     onError: (error) => {
+      console.log(error);
       showToast("error", "Erro ao fazer login", errorHandler(error.message));
       onError?.(errorHandler(error.message));
     },
