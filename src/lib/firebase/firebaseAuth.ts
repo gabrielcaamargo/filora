@@ -49,4 +49,5 @@ async function logInWithEmailAndPassword(
 export const firebaseAuth = {
   signupWithEmailAndPassword,
   logOut,
+  logInWithEmailAndPassword,
 };
