@@ -36,7 +36,16 @@ async function getUserProfile() {
   }
 }
 
+async function logOut() {
+  try {
+    await firebaseAuth.logOut();
+  } catch (error) {
+    throw error;
+  }
+}
+
 export const authService = {
   signupWithEmailAndPassword,
   getUserProfile,
+  logOut,
 };

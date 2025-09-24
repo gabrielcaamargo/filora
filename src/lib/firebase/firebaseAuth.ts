@@ -2,7 +2,7 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   FirebaseAuthTypes,
-  updateProfile,
+  signOut,
 } from "@react-native-firebase/auth";
 
 async function signupWithEmailAndPassword(
@@ -20,17 +20,17 @@ async function signupWithEmailAndPassword(
   return userCredentials;
 }
 
-async function updateUserName(name: string) {
+async function logOut() {
   const auth = getAuth();
 
   if (!auth.currentUser) {
     throw new Error("User not authenticated");
   }
 
-  await updateProfile(auth.currentUser, { displayName: name });
+  await signOut(auth);
 }
 
 export const firebaseAuth = {
   signupWithEmailAndPassword,
-  updateUserName,
+  logOut,
 };

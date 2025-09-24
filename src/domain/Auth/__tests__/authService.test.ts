@@ -8,7 +8,6 @@ import { FirebaseAuthTypes } from "@react-native-firebase/auth";
 jest.mock("@lib", () => ({
   firebaseAuth: {
     signupWithEmailAndPassword: jest.fn(),
-    updateUserName: jest.fn(),
   },
 }));
 
