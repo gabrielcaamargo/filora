@@ -8,7 +8,7 @@ export function Routes() {
   const { user } = useUserSlice();
   return (
     <NavigationContainer>
-      {!user?.id ? <AppStackNavigation /> : <AuthStackNavigation />}
+      {user?.id ? <AppStackNavigation /> : <AuthStackNavigation />}
     </NavigationContainer>
   );
 }
