@@ -86,12 +86,21 @@ export function AppTabBar({
   );
 }
 
-const styles = themedStyleSheet(({ spacing, radius }) => ({
+const styles = themedStyleSheet(({ spacing, colors }) => ({
   container: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "white",
+    backgroundColor: colors.backgroundColor,
     gap: spacing.s8,
+    shadowColor: colors.black,
+    shadowOffset: {
+      width: 0,
+      height: -3,
+    },
+    shadowOpacity: 0.07,
+    shadowRadius: 5,
+    elevation: 6,
+    paddingTop: spacing.s8,
   },
 
   tabItem: {
