@@ -2,6 +2,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { AuthStackNavigation } from "./AuthStackNavigation";
 import { useUserSlice } from "@store";
 import { AppStackNavigation } from "./AppStackNavigation";
+import { AppTabNavigation } from "./AppTabNavigation";
 
 export function Routes() {
   const { user } = useUserSlice();

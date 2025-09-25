@@ -120,7 +120,7 @@ const styles = themedStyleSheet(({ colors, spacing }) => ({
 
   image: {
     width: Dimensions.get("screen").width,
-    height: 240,
+    height: 280,
     resizeMode: "cover",
   },
 

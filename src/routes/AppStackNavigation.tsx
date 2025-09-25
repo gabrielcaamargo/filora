@@ -3,9 +3,10 @@ import {
   NativeStackNavigationOptions,
 } from "@react-navigation/native-stack";
 import { HomeScreen } from "@screens";
+import { AppTabNavigation } from "./AppTabNavigation";
 
 export type AppStackParamList = {
-  HomeScreen: undefined;
+  AppTabNavigator: undefined;
 };
 
 const screenOptions: NativeStackNavigationOptions = {
@@ -13,7 +14,7 @@ const screenOptions: NativeStackNavigationOptions = {
 };
 
 export function AppStackNavigation({
-  initialRouteName = "HomeScreen",
+  initialRouteName = "AppTabNavigator",
 }: {
   initialRouteName?: keyof AppStackParamList;
 }) {
@@ -22,10 +23,9 @@ export function AppStackNavigation({
   return (
     <Stack.Navigator
       screenOptions={screenOptions}
-      // initialRouteName="ResultScreen"
       initialRouteName={initialRouteName}
     >
-      <Stack.Screen name="HomeScreen" component={HomeScreen} />
+      <Stack.Screen name="AppTabNavigator" component={AppTabNavigation} />
     </Stack.Navigator>
   );
 }
