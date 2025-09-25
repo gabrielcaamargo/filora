@@ -43,7 +43,6 @@ export function useLoginWithEmailAndPasswordUseCase({
     },
 
     onError: (error) => {
-      console.log(error);
       showToast("error", "Erro ao fazer login", errorHandler(error.message));
       onError?.(errorHandler(error.message));
     },
