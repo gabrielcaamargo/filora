@@ -4,4 +4,5 @@ echo "✅ Linting complete"
 
 
 echo "Starting tests"
+yarn test
 echo "✅ All the tests passed"
