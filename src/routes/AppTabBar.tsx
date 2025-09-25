@@ -91,7 +91,6 @@ const styles = themedStyleSheet(({ spacing, colors }) => ({
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: colors.backgroundColor,
-    gap: spacing.s8,
     shadowColor: colors.black,
     shadowOffset: {
       width: 0,
