@@ -3,6 +3,7 @@ import {
   NativeStackNavigationOptions,
 } from "@react-navigation/native-stack";
 import { HomeScreen } from "@screens";
+import { AppTabNavigation } from "./AppTabNavigation";
 
 export type AppStackParamList = {
   AppTabNavigator: undefined;
@@ -24,7 +25,7 @@ export function AppStackNavigation({
       screenOptions={screenOptions}
       initialRouteName={initialRouteName}
     >
-      <Stack.Screen name="AppTabNavigator" component={AppStackNavigation} />
+      <Stack.Screen name="AppTabNavigator" component={AppTabNavigation} />
     </Stack.Navigator>
   );
 }
