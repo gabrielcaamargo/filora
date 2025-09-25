@@ -83,25 +83,6 @@ export function LoginScreen({ navigation }: AuthScreenProps<"LoginScreen">) {
             onPress={formSubmit(handleSubmit)}
             disabled={!isValid || isPending}
           />
-
-          <View style={styles.divider} />
-
-          <View style={styles.socialButtons}>
-            <Button
-              title="Entrar com Google"
-              preset="outline"
-              onPress={() => handleSocialLogin("google")}
-              testID={TestIds.GOOGLE_SOCIAL_BUTTON}
-              disabled={isPending}
-            />
-            <Button
-              title="Entrar com Apple"
-              preset="outline"
-              onPress={() => handleSocialLogin("apple")}
-              testID={TestIds.APPLE_SOCIAL_BUTTON}
-              disabled={isPending}
-            />
-          </View>
         </View>
 
         <TouchableOpacity
@@ -161,11 +142,6 @@ const styles = themedStyleSheet(({ colors, spacing }) => ({
     backgroundColor: colors.grayLight,
     width: "100%",
     marginVertical: spacing.s2,
-  },
-
-  socialButtons: {
-    gap: spacing.s8,
-    marginTop: spacing.s8,
   },
 
   createAccountButton: {

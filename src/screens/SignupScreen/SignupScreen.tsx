@@ -101,21 +101,6 @@ export function SignupScreen({ navigation }: AuthScreenProps<"SignupScreen">) {
           disabled={!isValid || isPending}
           testID={TestIds.SIGNUP_BUTTON}
         />
-
-        <View style={styles.divider} />
-
-        <Button
-          title="Entrar com Google"
-          preset="outline"
-          testID={TestIds.GOOGLE_SOCIAL_BUTTON}
-          disabled={isPending}
-        />
-        <Button
-          title="Entrar com Apple"
-          preset="outline"
-          testID={TestIds.APPLE_SOCIAL_BUTTON}
-          disabled={isPending}
-        />
       </View>
     </Screen>
   );

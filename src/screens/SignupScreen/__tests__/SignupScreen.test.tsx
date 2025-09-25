@@ -24,8 +24,6 @@ describe("<SignupScreen />", () => {
 
     // Check buttons are present
     expect(getByTestId(TestIds.SIGNUP_BUTTON)).toBeTruthy();
-    expect(getByTestId(TestIds.GOOGLE_SOCIAL_BUTTON)).toBeTruthy();
-    expect(getByTestId(TestIds.APPLE_SOCIAL_BUTTON)).toBeTruthy();
   });
 
   describe("Password Visibility Toggle", () => {
@@ -358,34 +356,5 @@ describe("<SignupScreen />", () => {
 
     //   consoleSpy.mockRestore();
     // });
-  });
-
-  describe("Social Login", () => {
-    it("should render Google and Apple social login buttons", () => {
-      const { getByTestId } = renderScreen(
-        <AuthStackNavigation initialRouteName="SignupScreen" />
-      );
-
-      expect(getByTestId(TestIds.GOOGLE_SOCIAL_BUTTON)).toBeTruthy();
-      expect(getByTestId(TestIds.APPLE_SOCIAL_BUTTON)).toBeTruthy();
-    });
-
-    it("should be pressable but not have any functionality (placeholder buttons)", () => {
-      const { getByTestId } = renderScreen(
-        <AuthStackNavigation initialRouteName="SignupScreen" />
-      );
-
-      const googleButton = getByTestId(TestIds.GOOGLE_SOCIAL_BUTTON);
-      const appleButton = getByTestId(TestIds.APPLE_SOCIAL_BUTTON);
-
-      // These buttons don't have onPress handlers in the current implementation
-      // So we just test that they exist and are pressable
-      expect(googleButton).toBeTruthy();
-      expect(appleButton).toBeTruthy();
-
-      // Press them to ensure they don't crash (no-op)
-      fireEvent.press(googleButton);
-      fireEvent.press(appleButton);
-    });
   });
 });

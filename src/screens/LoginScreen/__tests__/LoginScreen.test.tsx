@@ -27,15 +27,6 @@ describe("<LoginScreen />", () => {
       isPending: false,
     });
   });
-  it("should render the social buttons correctly", () => {
-    const { getByTestId } = renderScreen(
-      <AuthStackNavigation initialRouteName="LoginScreen" />
-    );
-
-    expect(getByTestId(TestIds.GOOGLE_SOCIAL_BUTTON)).toBeTruthy();
-    expect(getByTestId(TestIds.APPLE_SOCIAL_BUTTON)).toBeTruthy();
-  });
-
   describe("Password Visibility Toggle", () => {
     it("should toggle password visibility when eye icon is pressed", async () => {
       const { getByPlaceholderText, getByTestId } = renderScreen(
@@ -207,36 +198,6 @@ describe("<LoginScreen />", () => {
 
       // Button should be disabled when isPending is true, even with valid form
       expect(loginButton).toBeDisabled();
-    });
-  });
-
-  describe("Social Login", () => {
-    it("should call handleSocialLogin with 'google' when Google button is pressed", () => {
-      const consoleSpy = jest.spyOn(console, "log").mockImplementation();
-
-      const { getByTestId } = renderScreen(
-        <AuthStackNavigation initialRouteName="LoginScreen" />
-      );
-
-      const googleButton = getByTestId(TestIds.GOOGLE_SOCIAL_BUTTON);
-      fireEvent.press(googleButton);
-
-      expect(consoleSpy).toHaveBeenCalledWith("google");
-      consoleSpy.mockRestore();
-    });
-
-    it("should call handleSocialLogin with 'apple' when Apple button is pressed", () => {
-      const consoleSpy = jest.spyOn(console, "log").mockImplementation();
-
-      const { getByTestId } = renderScreen(
-        <AuthStackNavigation initialRouteName="LoginScreen" />
-      );
-
-      const appleButton = getByTestId(TestIds.APPLE_SOCIAL_BUTTON);
-      fireEvent.press(appleButton);
-
-      expect(consoleSpy).toHaveBeenCalledWith("apple");
-      consoleSpy.mockRestore();
     });
   });
 });
