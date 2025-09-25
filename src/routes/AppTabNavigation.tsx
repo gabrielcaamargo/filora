@@ -1,4 +1,5 @@
 import {
+  BottomTabBarProps,
   BottomTabNavigationOptions,
   createBottomTabNavigator,
 } from "@react-navigation/bottom-tabs";
@@ -8,6 +9,7 @@ import {
   SettingsScreen,
   ShareScreen,
 } from "@screens";
+import { AppTabBar } from "./AppTabBar";
 
 export type AppTabParamList = {
   HomeScreen: undefined;
@@ -19,14 +21,16 @@ export type AppTabParamList = {
 export function AppTabNavigation() {
   const Tab = createBottomTabNavigator<AppTabParamList>();
 
+  function renderTabBar(props: BottomTabBarProps) {
+    return <AppTabBar {...props} />;
+  }
+
   const screenOptions: BottomTabNavigationOptions = {
     headerShown: false,
   };
 
-  console.log("Rendered tabBar");
-
   return (
-    <Tab.Navigator screenOptions={screenOptions}>
+    <Tab.Navigator screenOptions={screenOptions} tabBar={renderTabBar}>
       <Tab.Screen name="HomeScreen" component={HomeScreen} />
       <Tab.Screen name="ShareScreen" component={ShareScreen} />
       <Tab.Screen name="ProfileScreen" component={ProfileScreen} />
