@@ -1,5 +1,7 @@
 const errorMessageMapper: Record<string, string> = {
   "auth/email-already-in-use": "Email já em uso",
+  "auth/user-disabled": "Sua conta foi desativada",
+  "auth/invalid-credential": "Credenciais inválidas",
 };
 
 /**

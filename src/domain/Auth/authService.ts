@@ -8,6 +8,8 @@ export type SignupWithEmailAndPasswordParams = {
   password: string;
 };
 
+export type LoginWithEmailAndPasswordParams = SignupWithEmailAndPasswordParams;
+
 async function signupWithEmailAndPassword({
   email,
   password,
@@ -44,8 +46,27 @@ async function logOut() {
   }
 }
 
+async function loginWithEmailAndPassword({
+  email,
+  password,
+}: LoginWithEmailAndPasswordParams) {
+  try {
+    const userCredential = await firebaseAuth.logInWithEmailAndPassword(
+      email,
+      password
+    );
+
+    const user = userAdapter.firebaseAuthToUser(userCredential);
+
+    return user;
+  } catch (error) {
+    throw error;
+  }
+}
+
 export const authService = {
   signupWithEmailAndPassword,
   getUserProfile,
   logOut,
+  loginWithEmailAndPassword,
 };

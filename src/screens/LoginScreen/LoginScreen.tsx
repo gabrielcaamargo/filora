@@ -8,10 +8,11 @@ import { loginSchema, LoginSchema } from "./LoginSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { TestIds } from "@test";
+import { useLoginWithEmailAndPasswordUseCase } from "@domain";
 
 export function LoginScreen({ navigation }: AuthScreenProps<"LoginScreen">) {
   const { top } = useAppSafeArea();
-
+  const { login, isPending } = useLoginWithEmailAndPasswordUseCase({});
   const {
     control,
     handleSubmit: formSubmit,
@@ -33,8 +34,8 @@ export function LoginScreen({ navigation }: AuthScreenProps<"LoginScreen">) {
     navigation.navigate("SignupScreen");
   }
 
-  function handleSubmit(data: LoginSchema) {
-    console.log(data);
+  function handleSubmit({ email, password }: LoginSchema) {
+    login(email, password);
   }
 
   return (
@@ -80,7 +81,7 @@ export function LoginScreen({ navigation }: AuthScreenProps<"LoginScreen">) {
             title="Entrar"
             testID={TestIds.LOGIN_BUTTON}
             onPress={formSubmit(handleSubmit)}
-            disabled={!isValid}
+            disabled={!isValid || isPending}
           />
 
           <View style={styles.divider} />
@@ -91,12 +92,14 @@ export function LoginScreen({ navigation }: AuthScreenProps<"LoginScreen">) {
               preset="outline"
               onPress={() => handleSocialLogin("google")}
               testID={TestIds.GOOGLE_SOCIAL_BUTTON}
+              disabled={isPending}
             />
             <Button
               title="Entrar com Apple"
               preset="outline"
               onPress={() => handleSocialLogin("apple")}
               testID={TestIds.APPLE_SOCIAL_BUTTON}
+              disabled={isPending}
             />
           </View>
         </View>

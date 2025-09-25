@@ -1,8 +1,32 @@
-import { fireEvent, renderScreen, waitFor } from "test-utils";
+import { fireEvent, renderScreen, waitFor, act } from "test-utils";
 import { AuthStackNavigation } from "@routes";
 import { TestIds } from "@test";
+import { User } from "@domain";
+import { useLoginWithEmailAndPasswordUseCase } from "@domain";
+
+// Mock the login use case
+jest.mock("@domain", () => ({
+  ...jest.requireActual("@domain"),
+  useLoginWithEmailAndPasswordUseCase: jest.fn(),
+}));
+
+const mockUseLoginWithEmailAndPasswordUseCase =
+  useLoginWithEmailAndPasswordUseCase as jest.MockedFunction<
+    typeof useLoginWithEmailAndPasswordUseCase
+  >;
 
 describe("<LoginScreen />", () => {
+  const mockLogin = jest.fn();
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+
+    // Default mock implementation
+    mockUseLoginWithEmailAndPasswordUseCase.mockReturnValue({
+      login: mockLogin,
+      isPending: false,
+    });
+  });
   it("should render the social buttons correctly", () => {
     const { getByTestId } = renderScreen(
       <AuthStackNavigation initialRouteName="LoginScreen" />
@@ -136,8 +160,37 @@ describe("<LoginScreen />", () => {
       });
     });
 
-    it("should call handleSubmit when login button is pressed with valid form", async () => {
-      const consoleSpy = jest.spyOn(console, "log").mockImplementation();
+    it("should call login function when login button is pressed with valid form", async () => {
+      const { getByPlaceholderText, getByTestId } = renderScreen(
+        <AuthStackNavigation initialRouteName="LoginScreen" />
+      );
+
+      const emailInput = getByPlaceholderText(/Digite seu email/i);
+      const passwordInput = getByPlaceholderText(/Digite sua senha/i);
+      const loginButton = getByTestId(TestIds.LOGIN_BUTTON);
+
+      await act(async () => {
+        fireEvent.changeText(emailInput, "test@example.com");
+        fireEvent.changeText(passwordInput, "Password123");
+      });
+
+      await waitFor(() => {
+        expect(loginButton).not.toBeDisabled();
+      });
+
+      await act(async () => {
+        fireEvent.press(loginButton);
+      });
+
+      expect(mockLogin).toHaveBeenCalledWith("test@example.com", "Password123");
+    });
+
+    it("should disable login button when login is pending", async () => {
+      // Mock pending state
+      mockUseLoginWithEmailAndPasswordUseCase.mockReturnValue({
+        login: mockLogin,
+        isPending: true,
+      });
 
       const { getByPlaceholderText, getByTestId } = renderScreen(
         <AuthStackNavigation initialRouteName="LoginScreen" />
@@ -147,23 +200,13 @@ describe("<LoginScreen />", () => {
       const passwordInput = getByPlaceholderText(/Digite sua senha/i);
       const loginButton = getByTestId(TestIds.LOGIN_BUTTON);
 
-      fireEvent.changeText(emailInput, "test@example.com");
-      fireEvent.changeText(passwordInput, "Password123");
-
-      await waitFor(() => {
-        expect(loginButton).not.toBeDisabled();
+      await act(async () => {
+        fireEvent.changeText(emailInput, "test@example.com");
+        fireEvent.changeText(passwordInput, "Password123");
       });
 
-      fireEvent.press(loginButton);
-
-      await waitFor(() => {
-        expect(consoleSpy).toHaveBeenCalledWith({
-          email: "test@example.com",
-          password: "Password123",
-        });
-      });
-
-      consoleSpy.mockRestore();
+      // Button should be disabled when isPending is true, even with valid form
+      expect(loginButton).toBeDisabled();
     });
   });
 
