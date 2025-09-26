@@ -9,7 +9,7 @@ function firebaseAuthToUser(
     id: userCredential.user.uid,
     email: userCredential.user.email ?? "",
     isNewUser: userCredential?.additionalUserInfo?.isNewUser ?? false,
-    createdAt: userCredential.user.metadata.creationTime ?? "",
+    createdAt: userCredential.user.metadata?.creationTime ?? "",
     emailVerified: false,
   };
 }

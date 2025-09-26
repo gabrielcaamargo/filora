@@ -22,15 +22,23 @@ export function useLoginWithEmailAndPasswordUseCase({
       const user = await authService.loginWithEmailAndPassword(data);
       const userProfile = await authService.getUserProfile();
 
+      console.log("userProfile::", userProfile);
+
       if (!user.isNewUser) {
         userProfile.isNewUser = false;
         saveUser({
           ...userProfile,
           isNewUser: false,
+          fullName: userProfile.fullName,
+          createdAt: userProfile.createdAt,
         });
       }
 
-      return userProfile;
+      return {
+        ...user,
+        createdAt: userProfile.createdAt,
+        fullName: userProfile.fullName,
+      };
     },
     onSuccess: (data) => {
       showToast(

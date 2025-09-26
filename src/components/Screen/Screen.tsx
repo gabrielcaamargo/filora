@@ -81,10 +81,10 @@ export function Screen({
         <View
           testID={TestIds.SCREEN_VIEW_CONTENT}
           style={[
-            withHorizontalPadding && styles.content,
-            { paddingTop: hasVerticalInsets ? top : 0 },
             { flex: 1 },
+            { paddingTop: hasVerticalInsets ? top : 0 },
             { paddingBottom: hasVerticalInsets ? bottom : 0 },
+            withHorizontalPadding && styles.content,
           ]}
         >
           {canGoBack && (
@@ -136,5 +136,6 @@ const styles = themedStyleSheet(({ spacing, colors }) => ({
 
   contentContainer: {
     marginBottom: spacing.s16,
+    flex: 1,
   },
 }));
