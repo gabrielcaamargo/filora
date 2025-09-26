@@ -41,7 +41,7 @@ const fontWeightMapper: Record<FontWeight, string> = {
   Bold: "Inter_700Bold",
 };
 
-interface TextProps extends RNTextProps {
+export interface TextProps extends RNTextProps {
   preset?: TextPresets;
   weight?: FontWeight;
   color?: ThemeColors;

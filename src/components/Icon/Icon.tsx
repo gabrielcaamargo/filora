@@ -67,7 +67,7 @@ export function Icon({
     <Pressable
       testID={TestIds.ICON_CONTAINER}
       onPress={onPressIcon}
-      hitSlop={12}
+      hitSlop={24}
     >
       <IconComponent
         name={name}
